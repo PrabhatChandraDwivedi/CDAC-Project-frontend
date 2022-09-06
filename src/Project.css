@@ -1,0 +1,58 @@
+.mydiv{
+  background-color:lightblue;
+  background-image:url(https://thumbs.dreamstime.com/b/beautiful-red-color-background-image-photo-editing-red-color-background-169218186.jpg);
+}
+
+.vish{
+top: 15px;
+  font-family: Sans-serif; 
+  font-size: 24px;     
+  font-style: normal; 
+  font-weight: bold; 
+  color:rgb(20, 157, 225);
+  box-shadow: #000000;
+  text-align: center; 
+  text-decoration: underline
+ }
+
+ .mytable{
+  background-image: url(https://c4.wallpaperflare.com/wallpaper/752/194/470/circles-highlights-background-form-wallpaper-preview.jpg);
+  margin-left: 250px;
+  padding-left: 10px;
+  border-radius: 15px;
+ width:65% ; 
+ border: #000000;
+  align-self:center ;
+  padding-inline :20;
+  font-family: verdana; 
+  color:white; 
+  font-size: 16px; 
+  font-style: normal;
+  font-weight: bold;
+  background: linear-gradient(to bottom, #1f5060 0%, #6d4d5d 100%);  
+  border-collapse: collapse; 
+ 
+ box-shadow:5px 5px 5px skyblue;
+   
+ }
+ /* table.inner{
+  border: 10px
+ } */
+
+ .mytable tr td{padding:15px;}
+
+
+.vishinput{
+  border-radius: 5px;
+  width: 50%;
+  padding: 6px 12px;
+  margin: 5px 0;
+  box-sizing: border-box;
+ }
+ .vishsub{
+  border-radius: 5px;
+  width: 15%;
+  padding: 8px 12px;
+  margin: 5px 0;
+  box-sizing: border-box;
+ }
