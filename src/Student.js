@@ -17,9 +17,9 @@ const gotoregistration=()=>{
   navigate("/register");
 }
   function displaydata(){
-      
+      //@GetMapping("/getall")
      axios.get("http://localhost:8080/getall",{mode:'no-cors'})
-      .then((response) => {
+     .then((response) => {
         // console.log(response.data);
         // response.json().then((response) => {
           setTdata(response.data);
@@ -29,11 +29,13 @@ const gotoregistration=()=>{
       //   console.log(err);
       // })
       
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.log(err);
       })
     }
+
+    //react lifecycle components... render() compondidUpdate, com
+    ///backend to frontend
     useEffect(() => {
       displaydata();
     }, [])
