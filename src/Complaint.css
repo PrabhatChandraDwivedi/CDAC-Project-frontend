@@ -1,0 +1,126 @@
+.CBox {
+    color: black;
+    background-color: white;
+    position: relative;
+    top: 0px;
+}
+
+.CBody {
+
+    scroll-behavior: auto
+}
+
+.horinav {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    height: 40px;
+}
+
+.ComplaintBtn {
+    color: black;
+    position: relative;
+    right: 5%;
+    top: 8px;
+}
+
+.btn1 {
+    font-size: 13px;
+    border-color: #31df4c;
+    color: black;
+    margin-right: 20px;
+}
+
+.btn1:hover {
+    position: relative;
+    top: 2px;
+    background-color: #31df4c;
+    color: black;
+    box-shadow: 3px -1px 0px 0px #0a0c09;
+}
+
+.btn2 {
+    font-size: 13px;
+    border-color: #31df4c;
+    color: black;
+    margin-right: 20px;
+}
+
+.btn2:hover {
+    position: relative;
+    top: 2px;
+    background-color: #31df4c;
+    color: black;
+    box-shadow: 3px -1px 0px 0px #0a0c09;
+}
+
+
+.form-por {
+    border: solid 2px blue;
+    width: 27%;
+    height: 650px;
+    position: relative;
+    top: 115px;
+    left: 34%;
+    padding: 25px;
+    border-radius: 17px
+}
+.form-group input{
+    height: 39px;
+    font-size: 18px;
+}
+.textarea {
+    vertical-align: top;
+    max-height: auto;
+    max-width: 100%;
+}
+
+.formdetail {
+    position: relative;
+    bottom: 7%
+}
+
+.formdetail div {
+    margin-top: 15px;
+}
+
+.submit {
+    border-color: #0a0c09;
+    color: black;
+    margin-right: 20px;
+}
+
+.submit:hover {
+    border-color: #0a0c09;
+    position: relative;
+    top: 2px;
+    background-color: blue;
+    color: white;
+}
+
+.reset {
+    border-color: #0a0c09;
+    color: black;
+}
+
+.reset:hover {
+    border-color: #0a0c09;
+    position: relative;
+    top: 2px;
+    background-color: yellow;
+    color: black;
+}
+
+.probcol label{
+    position: relative;
+    left: 6%;
+}
+.probcol2{
+    color: black;
+    position: relative;
+    left: 11%;
+}
+.probcol1{
+    color: black;
+    
+}

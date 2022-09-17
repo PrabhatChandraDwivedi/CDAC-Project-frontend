@@ -1,46 +1,60 @@
-import "../Signup.css"
+import "./Signup.css"
 import axios from "axios";
 import React,{useState} from "react";
 
 export default function Signup(){
 
-    const [data, setData] = useState({
-        firstName:'',
-        lastName:'',
-        email:'',
-        password:''
-    });
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [confirm_password, setCpass] = useState("");
 
-    let formValue={data}
-    console.log(formValue)
-
+    
     const [error, setError] = useState({
         errors:{},
         isError:false
     });
 
     //handle change
-    const handleChange=(event,property)=>{
+    const handleChange=(e)=>{
         //dynamic
-        setData({...data,[property]:event.target.value})
+     var value=e.target.value;
+        if (e.target.name==="username") {
+            setUsername(value);
+        }
+        else if (e.target.name==="email") {
+            setEmail(value);
+        }
+        else if (e.target.name==="password") {
+            setPassword(value);
+        }
+        else if (e.target.name==="confirm_password") {
+            setCpass(value);
+        }
     }
 
     //reseting the form
     const resetData=()=>{
-        setData({
-            firstName:'',
-            lastName:'',
-            email:'',
-            password:'',
-            confirm_password:''
-        });
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setCpass("");
+
     }
+let formvalue={
+    username,
+    email,
+    password,
+    role:["user"]
+}
 
 
     //submit the form
     const submitForm=(event)=>{
+
+
         event.preventDefault()
-        axios.post("http://localhost:8080/studsignup",data,{mode:'no-cors'})
+        axios.post("http://localhost:8080/api/auth/signup",formvalue,{mode:'no-cors'})
         .then((response) => {
             console.log("signup successful");
           })
@@ -67,25 +81,20 @@ export default function Signup(){
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control" id='fname' name="firstName" placeholder="Firstname" onChange={(e)=>handleChange(e,"firstName")} value={data.firstName} required="required"></input>
-                </div>
-                </div>
-                <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control" id='lname' name="lastName" placeholder="Lastname" onChange={(e)=>handleChange(e,"lastName")} value={data.lastName} required="required"></input>
+                    <input type="text" class="form-control" id='fname' name="username" placeholder="Fullname" onChange={handleChange} value={username} required="required"></input>
+                    
                 </div>
                 </div>
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control" id='email' name="email" placeholder="email" onChange={(e)=>handleChange(e,"email")} value={data.email} required="required"></input>
+                    <input type="text" class="form-control" id='email' name="email" placeholder="email" onChange={handleChange} value={email} required="required"></input>
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                    <input type="text" class="form-control" id='password' name="password" placeholder="Password" onChange={(e)=>handleChange(e,"password")} value={data.password} required="required"></input>
+                    <input type="text" class="form-control" id='password' name="password" placeholder="Password" onChange={handleChange} value={password} required="required"></input>
                 </div>
             </div>
             <div class="form-group">
@@ -94,7 +103,7 @@ export default function Signup(){
                         <i class="fa fa-lock"></i>
                         <i class="fa fa-check"></i>
                     </span>
-                    <input type="text" class="form-control" id='confirm_password' name="confirm_password" onChange={(e)=>handleChange(e,"confirm_password")} placeholder="Confirm Password" required="required"></input>
+                    <input type="text" class="form-control" id='confirm_password' name="confirm_password" onChange={handleChange} value={confirm_password} placeholder="Confirm Password" required="required"></input>
                 </div>
             </div>        
             <div class="form-group">
