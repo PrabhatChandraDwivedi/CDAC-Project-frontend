@@ -14,6 +14,7 @@ import Signup from "./SignupStudent";
 import StudentHome from "./StudentHome";
 import Review from "./Review";
 import ComplaintBox from "./ComplaintBox";
+import GuestHome from "./GuestHome";
 
 export default function App(){
     return(
@@ -33,7 +34,8 @@ export default function App(){
             < Route path='/signupstudent' exact={true} element={<Signup />} /> 
             < Route path='/studenthome' exact={true} element={<StudentHome/>} />
             < Route path='/review' exact={true} element={<Review/>} />
-            < Route path='/complaint' exact={true} element={<ComplaintBox/>} />     
+            < Route path='/complaint' exact={true} element={<ComplaintBox/>} />
+            < Route path='/guesthome' exact={true} element={<GuestHome/>} />     
             
         </Routes>
         </BrowserRouter>

@@ -2,11 +2,17 @@ import React from "react";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
+import authHeader from "./Headerhelper";
 import "./styles.css";
 export default function StudentHome() {
     const[tdata,setTdata]=useState([]);
     const navigate = useNavigate();
-
+    const getCurrentUser = () => {
+        return JSON.parse(localStorage.getItem("user"));
+      };
+    const currentUser = getCurrentUser();
+    const passed_email = currentUser.email;
+    console.log(passed_email)
     const Update = () => {
         navigate("/register");
     }
@@ -30,11 +36,12 @@ export default function StudentHome() {
     const gotoComplaintBox = () => {
         navigate("/complaintBox");
     }
+    const id=1;
     function displaydata() {
 
-        axios.get("http://localhost:8080/getall", { mode: 'no-cors' })
+        axios.get("http://localhost:8080/getdata/"+id, { mode: 'no-cors' })
             .then((response) => {
-                setTdata(response.data);
+                console.log(response.data)
             })
             .catch((err) => {
                 console.log(err);
