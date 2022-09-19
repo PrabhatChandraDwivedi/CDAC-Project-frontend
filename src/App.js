@@ -15,6 +15,7 @@ import StudentHome from "./StudentHome";
 import Review from "./Review";
 import ComplaintBox from "./ComplaintBox";
 import GuestHome from "./GuestHome";
+import ForgotPassword from "./ForgotPassword/ForgotPassword";
 
 export default function App(){
     return(
@@ -35,7 +36,8 @@ export default function App(){
             < Route path='/studenthome' exact={true} element={<StudentHome/>} />
             < Route path='/review' exact={true} element={<Review/>} />
             < Route path='/complaint' exact={true} element={<ComplaintBox/>} />
-            < Route path='/guesthome' exact={true} element={<GuestHome/>} />     
+            < Route path='/guesthome' exact={true} element={<GuestHome/>} />
+            < Route path='/forgot' exact={true} element={<ForgotPassword/>} />     
             
         </Routes>
         </BrowserRouter>

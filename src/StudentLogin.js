@@ -11,6 +11,13 @@ export default function StudentLogin(){
       
       navigate("/student");
     }
+    const gotoForgotPassword= ()=>{
+
+      navigate("/forgot")
+    }
+
+
+
     //login magic happens here
     const doLogin = (event)=>{
       event.preventDefault();
@@ -57,7 +64,7 @@ export default function StudentLogin(){
           <span></span>
           <label>Password</label>
         </div>
-        <div class="ppass">Forgot Password?</div>
+        <div class="ppass" onClick={gotoForgotPassword} >Forgot Password?</div>
         <input type="submit" value="Login" onClick={doLogin}/>
         <div class="psignup_link">
           Don't have an account? <a href="#0">Signup</a>
