@@ -21,6 +21,7 @@ import GuestRoom from "./Admin/Room/RoomManagement/GuestRoom"
 import ForgotPassword from "./ForgotPassword/ForgotPassword"
 import ForgotPassNext from "./ForgotPassword/ForgotPassNext"
 import Randomtests from "./Dummytest/Randomtests"
+import TermsAndConditions from "./Signup/TermsAndConditions";
  
 export default function App(){
     return(
@@ -37,7 +38,7 @@ export default function App(){
             <Route path='/adminroom' exact={true} element={<Room />} /> 
             <Route path='/guestlogin' exact={true} element={<GuestLogin />} />
             < Route path='/adminlogin' exact={true} element={<AdminLogin />} />
-            < Route path='/signupstudent' exact={true} element={<SignupGuest />} /> 
+            < Route path='/signupguest' exact={true} element={<SignupGuest />} /> 
             < Route path='/signupstudent' exact={true} element={<SignupStudent />} /> 
             < Route path='/studenthome' exact={true} element={<StudentHome/>} />
             < Route path='/complaint' exact={true} element={<ComplaintBox/>} />
@@ -48,6 +49,7 @@ export default function App(){
             < Route path='/forgot' exact={true} element={<ForgotPassword/>} />     
             < Route path='/forgotnext' exact={true} element={<ForgotPassNext/>} />
             < Route path='/test' exact={true} element={<Randomtests/>} />
+            < Route path='/terms' exact={true} element={<TermsAndConditions/>} />
             
         </Routes>
         </BrowserRouter>

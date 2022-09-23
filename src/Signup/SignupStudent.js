@@ -3,7 +3,7 @@ import axios from "axios";
 import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Signup(){
+export default function SignupStudent(){
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
