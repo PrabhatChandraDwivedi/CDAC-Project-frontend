@@ -7,7 +7,7 @@ export default function AdminLogin() {
     }
   return (
     <div>
-      <div class="pcenter">
+      <div class="pcenter" style={{height:430}}>
       <h1>Admin Login</h1>
       <form method="post">
         <div class="ptxt_field"> 
@@ -20,11 +20,11 @@ export default function AdminLogin() {
           <span></span>
           <label>Password</label>
         </div>
-        <div class="ppass">Forgot Password?</div>
+        {/* <div class="ppass">Forgot Password?</div> */}
         <input type="submit" value="Login" onClick={gotodashboard}/>
-        <div class="psignup_link">
+        {/* <div class="psignup_link">
           Don't have an account? <a href="#0">Signup</a>
-        </div>
+        </div> */}
       </form>
     </div>
     </div>

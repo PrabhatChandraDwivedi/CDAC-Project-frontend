@@ -6,6 +6,10 @@ export default function GuestLogin(){
     const gotodashboard=()=>{
       navigate("/dashboard");
     }
+    const gotoForgotPassword= ()=>{
+
+      navigate("/forgot")
+    }
   return (
     <div>
       <div class="pcenter">
@@ -21,7 +25,7 @@ export default function GuestLogin(){
           <span></span>
           <label>Password</label>
         </div>
-        <div class="ppass">Forgot Password?</div>
+        <div class="ppass" onClick={gotoForgotPassword}>Forgot Password?</div>
         <input type="submit" value="Login" onClick={gotodashboard}/>
         <div class="psignup_link">
           Don't have an account? <a href="#0">Signup</a>

@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./styles.css";
+import "../styles.css";
 export default function GuestHome() {
     const navigate = useNavigate();
     const logout = () => {
@@ -17,11 +17,11 @@ export default function GuestHome() {
     }
 
     const show = () => {
-        var x = document.getElementById("Box").innerHTML = ` <i class="fa-solid fa-house-user"></i> Review `;
+        var x = document.getElementById("Box").innerHTML = ` <i class='fas fa-comment'></i> Review `;
         x.style.display = "Block";
     }
     const hide = () => {
-        var x = document.getElementById("Box").innerHTML = ` <i class="fa-solid fa-house-user"></i> `;
+        var x = document.getElementById("Box").innerHTML = `<i class='fas fa-comment'></i> `;
         x.style.display = "none";
     }
     //----------------------------JavaScript here for mapping-------------------------------------
@@ -148,7 +148,7 @@ export default function GuestHome() {
                     </nav>
 
                     <div className="Detailsbox">
-                        <div className="IdHeading">Guest Id : {guest_Id} </div>
+                        <div className="IdHeading">Guest Id : 1{guest_Id} </div>
                         {/*---------------- Stay Details--------------- */}
                         <div className="CardBlock1">
                             <p className="Heading" >Stay Details</p>
@@ -156,18 +156,22 @@ export default function GuestHome() {
                                 <label class="form-label"> <strong>Check-in Time :</strong> 12.00 PM </label>
                             </div>
                             <div className="HomePage" id="Line">
-                                <label class="form-label"> <strong>Check-in Date:</strong> {check_in_date}</label>
+                                <label class="form-label"> <strong>Check-in Date:</strong> 09-09-2022{check_in_date}</label>
                             </div>
                             <br />
                             <div className="HomePage">
                                 <label class="form-label"> <strong>Check-out Time:</strong> 11.00 AM</label>
                             </div>
                             <div className="HomePage" id="Line">
-                                <label class="form-label"><strong>Check-out Date :</strong> {check_out}</label>
+                                <label class="form-label"><strong>Check-out Date :</strong>10-09-2022 {check_out}</label>
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label class="form-label"><strong>Room Type :</strong> {room_Type} </label>
+                                <label class="form-label"><strong>Room Type :</strong>Single {room_Type} </label>
+                            </div>
+                            <br/>
+                            <div className="HomePage" >
+                                <label class="form-label"><strong>Room number :</strong>101 {room_Type} </label>
                             </div>
                         </div>
                         <br />
@@ -175,15 +179,15 @@ export default function GuestHome() {
                         <div className="CardBlock12">
                             <p className="Heading" >Personal Details</p>
                             <div className="HomePage" >
-                                <label for="text" class="form-label"> <strong>Full Name:</strong> {capitalizeFirst(guestName)}</label>
+                                <label for="text" class="form-label"> <strong>Full Name:</strong>Prabhat chandra dwivedi {capitalizeFirst(guestName)}</label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label for="dob" class="form-label"><strong>Date of Birth:</strong> {date_Of_Birth} </label>
+                                <label for="dob" class="form-label"><strong>Date of Birth:</strong>21-11-1998 {date_Of_Birth} </label>
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label for="Gender" class="form-label"><strong>Gender:</strong> {gender} </label>
+                                <label for="Gender" class="form-label"><strong>Gender:</strong>Male {gender} </label>
                             </div>
                         </div>
                         <br />
@@ -191,34 +195,34 @@ export default function GuestHome() {
                         <div className="CardBlock22">
                             <p className="Heading" >Contact Details</p>
                             <div className="HomePage" >
-                                <label for="mobno" class="form-label "><strong>Mobile No:</strong> {mobile_no} </label>
+                                <label for="mobno" class="form-label "><strong>Mobile No:</strong>9876543210 {mobile_no} </label>
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label for="email" class="form-label"><strong>E-Mail:</strong> vishalkukde19@gmail.com </label>
+                                <label for="email" class="form-label"><strong>E-Mail:</strong> prabhat@gmail.com </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label "><strong> Valid Id Proof :</strong> {id_Proof} </label>
+                                <label class="form-label "><strong> Valid Id Proof :</strong>Aadhar {id_Proof} </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label "><strong> Aadhar No.:</strong> {aadhar_no}  </label>
+                                <label class="form-label "><strong> Aadhar No.:</strong>1234-1234-1234 {aadhar_no}  </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label "><strong> Address:</strong> {address}  </label>
+                                <label class="form-label "><strong> Address:</strong>Ashok Nagar {address}  </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label "><strong> City:</strong> {city}</label>
+                                <label class="form-label "><strong> City:</strong>Ballia {city}</label>
                             </div>
                             <div className="HomePage" id="Line">
-                                <label class="form-label"> <strong>State:</strong> {Istate}</label>
+                                <label class="form-label"> <strong>State:</strong>Uttar Pradesh {Istate}</label>
                             </div>
                             <div className="HomePage" id="Line">
 
-                                <label class="form-label" style={{ position: "relative", left: 190 }}><strong> Pin Code</strong> : {pincode}</label>
+                                <label class="form-label" style={{ position: "relative", left: 190 }}><strong> Pin Code</strong> :277001 {pincode}</label>
 
                             </div>
                         </div>
@@ -231,11 +235,11 @@ export default function GuestHome() {
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label"><strong>Paid Amount :</strong> INR 600 </label>
+                                <label class="form-label"><strong>Paid Amount :</strong> INR 1000 </label>
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label class="form-label"><strong>Remaining fee:</strong> INR 400 </label>
+                                <label class="form-label"><strong>Remaining fee:</strong> INR 0 </label>
                             </div>
                             <br />
                             <div className="HomePage" >

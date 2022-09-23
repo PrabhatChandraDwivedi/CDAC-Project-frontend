@@ -1,0 +1,118 @@
+.vtitle{
+    text-align: center; 
+    color: black;
+   
+}
+.GuestTitle{
+    top: 15px;
+  font-family: Sans-serif; 
+  font-size: 24px;     
+  font-style:italic; 
+  font-weight: bold; 
+  color:rgb(3, 17, 24);
+  box-shadow: #000000;
+  text-align: center; 
+  text-decoration: underline
+}
+.guestinput{
+    border-radius: 5px;
+    width: 40%;
+    padding: 6px 6px;
+    padding-left: 10px;
+    
+    float:right;
+    padding-right: 5px;
+  
+    margin: 5px 0;
+    box-sizing: border-box;
+   }
+   .col{
+    border-color: brown;
+    text-align:left;
+    margin-left: 5px;
+   }
+   .guesttable{
+    background-image: url(https://c4.wallpaperflare.com/wallpaper/752/194/470/circles-highlights-background-form-wallpaper-preview.jpg);
+    margin-left: 250px;
+    padding-left: 10px;
+    border-radius: 15px;
+    margin-top: 10px;
+   width:65% ; 
+   border: #000000;
+    align-self:center ;
+    padding-inline :20;
+    font-family: verdana; 
+    color:white; 
+    font-size: 16px; 
+    font-style: normal;
+    font-weight: bold;
+    background: linear-gradient(-90deg,white,rgb(86, 85, 85)); 
+    border-collapse: collapse; 
+   
+   box-shadow:5px 5px 5px skyblue;
+     
+   }
+   .row{
+    text-align: center;
+   }
+   .Address{
+    border-radius: 5px;
+    width: 100%;
+    padding: 6px 6px;
+    
+    align-items: right;
+    float: right;
+    padding-right: 5px;
+   
+    margin: 5px 0;
+    box-sizing: border-box;
+   }
+   .guestsub:hover {
+    background-color: rgb(26, 200, 63);
+  }
+   .guestsub{
+    
+    width: 50%;
+    position:relative;
+    margin-left: 90%;
+    left: 100%;
+   padding-top: 10px;
+   margin-top: 10px;
+    border-radius: 5px;
+   align-self: center;
+    padding: 8px 12px;
+   
+    box-sizing: border-box;
+   }
+   .guestres{
+    width: 50%;
+    margin-left: 115%;
+   padding-top: 10px;
+   margin-top: 10px;
+    border-radius: 5px;
+   align-self: center;
+    padding: 8px 12px;
+    position: relative;
+    left: 100%;
+   
+    box-sizing: border-box;
+   }
+   .erroringuest
+   {
+     color:red;
+     font-size: small;
+     margin-left: 70%;
+   }
+   .red-star {
+    color: red;
+}
+.noteguest{
+  color: crimson;
+  text-align: center;
+  margin-left: 39%;
+}
+.imageinputinguest{
+  width: 200px;
+  height: 150px;
+  border: 2px solid coral;
+}

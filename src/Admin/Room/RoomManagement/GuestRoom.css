@@ -1,0 +1,109 @@
+.rooms{
+    display: inline;
+    margin: 20px;
+    margin-top: 10px;
+    border: 2px solid black;
+    
+}
+.outer{
+    border: 2px solid grey;
+   width: auto;
+   height:1000px;
+   margin-left: 50px;
+   margin-top: 10px;
+   padding-top: 20px;
+
+}
+.rm1{
+    height: 150px;
+    width: 150px;
+    border-radius: 5px;
+    background-color: aqua;
+}
+.rm2{
+    height: 150px;
+    width: 150px;
+    border-radius: 5px;
+    background-color: green;
+}
+.button1{
+    background-color: mediumaquamarine;
+    color: aliceblue;
+    border-radius: 10px;
+    width: 300px;
+    height: 65px;
+    margin-left: 20px;
+    border: none;
+}
+.button2{
+    background-color: rgb(102, 164, 205);
+    color: aliceblue;
+    border-radius: 10px;
+    position: relative;
+    left: 20px;
+    width: 300px;
+    height: 65px;
+    margin-left: 20px;
+    border: none;
+}
+ 
+.invisible{
+    color: black;
+}
+.room_card{
+    border: none;
+box-shadow: -2px -2px 5px 1px #00000042;
+border-radius: 5px;
+min-width: 30%;
+height: 180px;
+padding: 10px;
+display: inline-block;
+margin-top: 30px;
+margin-left: 25px;
+margin-right: 0px;
+max-width: 30%;
+   
+}
+.my_student_room{
+    border: 2px solid black;
+     position: relative;
+     left: 50%;
+    width: 50%;
+    height: 750px;
+    
+}
+.fixed-side{
+    position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1030;
+  }
+  .fixed-top{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 224px;
+    z-index: 1030;
+  }
+  .button{
+    background-color: cornflowerblue;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    width: 120px;
+    height: 30px;
+  }
+  .hbtn{
+    border: none;
+    color: blue;
+  }
+  .vikastr{
+    display: inline;
+    
+    
+  }
+
+  .innertddiv{
+    display: inline;
+  }

@@ -1,0 +1,99 @@
+.mydiv{
+  background-color:lightblue;
+  position:relative;
+ margin-top: -30px;
+ background-repeat: no-repeat;
+/* background-image: url(../src/landingimg/1159295.webp); */
+background-size: 100% 100%;
+  height: 1850px;
+}
+
+.vish{
+top: 15px;
+  font-family: Sans-serif; 
+  font-size: 24px;     
+  font-style: normal; 
+  font-weight: bold; 
+  color:black;
+  box-shadow: #000000;
+  text-align: center; 
+  text-decoration: underline
+ }
+
+ .mytable{
+  background: linear-gradient(-90deg,white,rgb(86, 85, 85)); 
+ color: white;
+  margin-left: 250px;
+  padding-left: 10px;
+  border-radius: 15px;
+  margin-top: 10px;
+ width:65% ; 
+ border: #000000;
+  align-self:center ;
+  padding-inline :20;
+  font-family: verdana; 
+ 
+  font-size: 16px; 
+  font-style: normal;
+  font-weight: bold;
+
+  border-collapse: collapse; 
+ 
+ box-shadow:2px 8px 5px rgb(11, 11, 11);
+   
+ }
+ /* table.inner{
+  border: 10px
+ } */
+
+ .mytable tr td{padding:15px;}
+
+
+.vishinput{
+  border-radius: 5px;
+  width: 50%;
+  padding: 6px 12px;
+  margin: 5px 0;
+  box-sizing: border-box;
+ }
+ .vishsub{
+  width: 50%;
+  position:relative;
+  left: 100%;
+ padding-top: 10px;
+ margin-top: 10px;
+  border-radius: 5px;
+ align-self: center;
+  padding: 8px 12px;
+ 
+  box-sizing: border-box;
+ }
+ .vishres{
+  width: 50%;
+  margin-left: 100%;
+ padding-top: 10px;
+ margin-top: 10px;
+  border-radius: 5px;
+ align-self: center;
+  padding: 8px 12px;
+  position: relative;
+  left: 20%;
+ 
+  box-sizing: border-box;
+ }
+ .error
+{
+	color:red;
+	font-size: small;
+	margin-left: 20%;
+}
+.notestudent{
+  color: crimson;
+  text-align: center;
+ 
+}
+.imageinput{
+  width: 200px;
+  height: 150px;
+  border: 2px solid coral;
+}

@@ -8,6 +8,11 @@ export default function ForgotPassword() {
     const gotoStudentLogin =()=>{
         navigate("/login")
     }
+    const gotoforgotnext =()=>{
+        navigate("/forgotnext")
+    }
+
+
 
 
     return (
@@ -63,7 +68,7 @@ export default function ForgotPassword() {
                     <button
                         type="submit"
                         class="btn btn-primary"
-                       
+                       onClick={gotoforgotnext}
                         style={{
                             position: "relative",
                             top: 130,

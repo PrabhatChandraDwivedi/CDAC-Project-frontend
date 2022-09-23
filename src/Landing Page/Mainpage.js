@@ -1,11 +1,11 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
-import image1 from '../src/landingimg/hostel.png';
-import image2 from '../src/landingimg/room.png';
-import image3 from '../src/landingimg/mess.png';
-import '../src/landingcss/Navigation-with-Button.css';
-import '../src/landingcss/Reviews.css';
-import '../src/landingcss/Contact-Form-v2-Modal--Full-with-Google-Map.css';
+import image1 from './landingimg/hostel.png';
+import image2 from './landingimg/room.png';
+import image3 from './landingimg/mess.png';
+import './landingcss/Navigation-with-Button.css';
+import './landingcss/Reviews.css';
+import './landingcss/Contact-Form-v2-Modal--Full-with-Google-Map.css';
 import { useNavigate } from "react-router-dom";
 
 
@@ -21,6 +21,18 @@ export default function MainPage() {
     }
     const gotoGuestLogin=()=>{
         navigate("/guestlogin");
+    }
+
+    const gotoSignupStud=()=>{
+        navigate("/signupstudent");
+    }
+
+    const gotoSignupGuest=()=>{
+        navigate("/signupguest");
+    }
+
+    const top = () => {
+        window.scrollTo(0, 0);
     }
     return (
         <div>
@@ -39,19 +51,29 @@ export default function MainPage() {
                             <li class="nav-item"><a class="nav-link" href="#Faq">FAQ</a></li>
                             <li class="nav-item"><a class="nav-link" href="#Locateus">Contact</a></li>
                         </ul>
-                        <span class="navbar-text actions">
-                                
+                        
+                        <span class="navbar-text actions">     
                         <div class="dropdown">
-                            <button class="btn btn-light action-button dropbtn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Log In</button>
+                            <button class="btn btn-light action-button dropbtn" type="button" id="dropdownMenuButton1" 
+                            data-bs-toggle="dropdown" aria-expanded="false">Log In</button>
                             <div class="dropdown-content">
                             <a class="dropdown-item" onClick={gotostuLogin} href="#0">Student</a>
                             <a class="dropdown-item" onClick={gotoGuestLogin} href="#0">Guest</a>
                             <a class="dropdown-item" onClick={gotoAdminLogin} href="#0">Admin</a>
                         </div> </div>
                                 <span style={{paddingLeft:"5px"}}></span>
-                                <a class="btn btn-light action-button" role="button" href="Signup.js">Sign Up</a>
-                           
-                        </span>
+                                </span>
+
+                         <span class="navbar-text actions">          
+                            <div class="dropdown">
+                                <button class="btn btn-light action-button dropbtn" type="button" id="dropdownMenuButton1" 
+                                data-bs-toggle="dropdown" aria-expanded="false">Sign Up</button>
+                                <div class="dropdown-content">
+                                  <a class="dropdown-item" onClick={gotoSignupStud} href="#0">Student</a>
+                                  <a class="dropdown-item" onClick={gotoSignupGuest} href="#0">Guest</a>
+                                </div> </div> 
+                                    <span style={{paddingLeft:"5px"}}></span>
+                                </span>     
                     </div>
                 </div>
             </nav>
@@ -181,7 +203,7 @@ export default function MainPage() {
                 marginBottom:"5px",fontSize:"48px",fontWeight:"bold",textAlign:"center"}}
                     id="Faq">
                     FAQ</h1>
-                <p class="text-center mb-5">
+                <p class="text-center mb-5" style={{color:"rgb(255,255,255)"}}>
                     Find the answers for the most frequently asked questions below
                 </p>
 
@@ -234,22 +256,22 @@ export default function MainPage() {
                     <div class="row">
                         <div class="col-12">
                             <div class="static-map">
-                                <a href="https://www.google.com/maps/place/Daytona+International+Speedway/@29.1815062,-81.0744275,15z/data=!4m13!1m7!3m6!1s0x88e6d935da1cced3:0xa6b3e1bc0f2fc83a!2s1801+W+International+Speedway+Blvd,+Daytona+Beach,+FL+32114!3b1!8m2!3d29.187028!4d-81.0703076!3m4!1s0x88e6d949a4cb8593:0x1387c6c0b5c8cc97!8m2!3d29.1851681!4d-81.0705292"
-                                target=""> <img class="img-fluid"
-                                src="http://maps.googleapis.com/maps/api/staticmap?autoscale=2&amp;size=600x210&amp;maptype=roadmap&amp;format=png&amp;visual_refresh=true&amp;markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C582+1801+W+International+Speedway+Blvd+Daytona+Beach+FL+32114&amp;zoom=12"
-                                    alt="Google Map of Daytona International Speedway"/></a>
+                                <a href="https://www.google.com/search?q=kpcdac+bangalore+location+&rlz=1C1GCEU_enIN925IN925&biw=1280&bih=577&sxsrf=ALiCzsYb0wHYqWsTjMgPQM71fE47t_60mw%3A1663414097569&ei=Ua8lY_avIujJz7sP7bGhgAk&ved=0ahUKEwi2nJmz3Jv6AhXo5HMBHe1YCJAQ4dUDCA4&uact=5&oq=kpcdac+bangalore+location+&gs_lcp=Cgdnd3Mtd2l6EAMyBAgjECc6CggAEEcQ1gQQsAM6DQgAEEcQ1gQQsAMQyQNKBAhBGABKBAhGGABQ-ANY9QdgwQxoAXABeACAAa8BiAGyBJIBAzAuNJgBAKABAcgBCMABAQ&sclient=gws-wiz"
+                                target="_blank" rel="noopener noreferrer"> <img class="img-fluid"
+                                src=""
+                                    alt="Google Map of KP-DAC"/></a>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-12 col-lg-6 clocateus">
                             <h2 class="h4 "><i class="fa fa-user"></i> Our Info</h2>
-                            <div><span><strong>Name</strong></span></div>
-                            <div><span>email@awebsite.com</span></div>
-                            <div><span>www.awebsite.com</span></div>
+                            <div><span><strong>Sukanya Vardhan</strong></span></div>
+                            <div><span>pcv3@hostel.com</span></div>
+                            <div><span>www.pcv3hostel.com</span></div>
                             <hr class="d-sm-none d-md-block d-lg-none"/>
                         </div>
                         <div class="col-sm-6 col-md-12 col-lg-6 clocateus">
                             <h2 class="h4 "><i class="fa fa-location-arrow"></i> Our Address</h2>
-                            <div><span><strong>Office Name</strong></span></div>
+                            <div><span><strong>GenZ</strong></span></div>
                             <div><span>55 Icannot Dr</span></div>
                             <div><span>Daytone Beach, FL 85150</span></div>
                             <div><abbr data-toggle="tooltip" data-placement="top"
@@ -258,122 +280,9 @@ export default function MainPage() {
                         </div>
                     </div>
             </div>
-        <div class="modal fade" role="dialog" tabindex="-1" id="modal1">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4>Contact Information</h4><button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="contactForm-2" action="" method="get">
-                            <input class="form-control" type="hidden" name="Introduction" value="This email was sent from www.awebsite.com"/>
-                            <input class="form-control" type="hidden" name="subject" value="Awebsite.com Contact Form"/>
-                            <input class="form-control" type="hidden" name="to" value="email@awebsite.com"/>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div id="successfail-2"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-md-6" id="message-2">
-                                    <h2 class="h4"><i class="fa fa-envelope"></i> Contact Us<small><small class="required-input">&nbsp;(*required)</small></small></h2>
-                                    <div class="form-group mb-3"><label class="form-label" for="from-name">Name</label><span class="required-input">*</span>
-                                        <div class="input-group"><span class="input-group-text"><i
-                                                    class="fa fa-user-o"></i></span><input class="form-control"
-                                                type="text" id="from-name-2" name="name" required=""
-                                                placeholder="Full Name"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group mb-3"><label class="form-label"
-                                            for="from-email">Email</label><span class="required-input">*</span>
-                                        <div class="input-group"><span class="input-group-text"><i
-                                                    class="fa fa-envelope-o"></i></span><input class="form-control"
-                                                type="text" id="from-email-2" name="email" required=""
-                                                placeholder="Email Address"/>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
-                                            <div class="form-group mb-3"><label class="form-label"
-                                                    for="from-phone">Phone</label><span class="required-input">*</span>
-                                                <div class="input-group"><span class="input-group-text"><i
-                                                            class="fa fa-phone"></i></span><input class="form-control"
-                                                        type="text" id="from-phone-2" name="phone" required=""
-                                                        placeholder="Primary Phone"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
-                                            <div class="form-group mb-3"><label class="form-label"
-                                                    for="from-calltime">Best Time to Call</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend"><span class="input-group-text"><i
-                                                                class="fa fa-clock-o"></i></span>
-                                                    </div>
-                                                    <select class="form-select" id="from-calltime-2" name="call time">
-                                                        <optgroup label="Best Time to Call">
-                                                            <option value="Morning" selected="">Morning</option>
-                                                            <option value="Afternoon">Afternoon</option>
-                                                            <option value="Evening">Evening</option>
-                                                        </optgroup>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group mb-3"><label class="form-label" for="from-comments">Comments</label>
-                                        <textarea class="form-control" id="from-comments-2" name="comments" placeholder="Enter Comments" rows="5">
-                                        </textarea></div>
-                                    <div class="form-group mb-3">
-                                        <div class="row">
-                                            <div class="col"><button class="btn btn-primary d-block w-100"
-                                                    type="reset"><i class="fa fa-undo"></i> Reset</button>
-                                            </div>
-                                            <div class="col"><button class="btn btn-primary d-block w-100"
-                                                    type="submit">Submit <i
-                                                        class="fa fa-chevron-circle-right"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr class="d-flex d-md-none"/>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <h2 class="h4"><i class="fa fa-location-arrow"></i> Locate Us</h2>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="static-map">
-                                                <a href="https://www.google.com/maps/place/Daytona+International+Speedway/@29.1815062,-81.0744275,15z/data=!4m13!1m7!3m6!1s0x88e6d935da1cced3:0xa6b3e1bc0f2fc83a!2s1801+W+International+Speedway+Blvd,+Daytona+Beach,+FL+32114!3b1!8m2!3d29.187028!4d-81.0703076!3m4!1s0x88e6d949a4cb8593:0x1387c6c0b5c8cc97!8m2!3d29.1851681!4d-81.0705292"
-                                                    target=""> <img class="img-fluid"
-                                                        src="http://maps.googleapis.com/maps/api/staticmap?autoscale=2&amp;size=600x210&amp;maptype=roadmap&amp;format=png&amp;visual_refresh=true&amp;markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C582+1801+W+International+Speedway+Blvd+Daytona+Beach+FL+32114&amp;zoom=12"
-                                                        alt="Google Map of Daytona International Speedway"/></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
-                                            <h2 class="h4"><i class="fa fa-user"></i> Our Info</h2>
-                                            <div><span><strong>Name</strong></span></div>
-                                            <div><span>email@awebsite.com</span></div>
-                                            <div><span>www.awebsite.com</span></div>
-                                            <hr class="d-sm-none d-md-block d-lg-none"/>
-                                        </div>
-                                        <div class="col-sm-6 col-md-12 col-lg-6">
-                                            <h2 class="h4"><i class="fa fa-location-arrow"></i> Our Address</h2>
-                                            <div><span><strong>Office Name</strong></span></div>
-                                            <div><span>55 Icannot Dr</span></div>
-                                            <div><span>Daytone Beach, FL 85150</span></div>
-                                            <div><abbr data-toggle="tooltip" data-placement="top"
-                                                    title="Office Phone: 555-867-5309">O:</abbr> 555-867-5309</div>
-                                            <hr class="d-sm-none"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>  
+    </div> 
+    <div>
+    <a class="border rounded d-inline scroll-to-top" onClick={top} href=""><i class="fas fa-angle-up"></i></a></div> 
 
         </div>);
 }

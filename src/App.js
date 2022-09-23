@@ -1,43 +1,53 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
- import Student from "./Student";
- import Guest from "./Guest";
-import StudentLogin from "./StudentLogin";
-import Dashboard from "./Dashboard";
-import Room from "./Room";
-import AdminLogin from "./AdminLogin";
-import MainPage from "./Mainpage";
-import Landing from "./Landing";
-import Registration from "./Registration";
-import GuestLogin from "./GuestLogin";
-import Signup from "./SignupStudent";
-import StudentHome from "./StudentHome";
-import Review from "./Review";
-import ComplaintBox from "./ComplaintBox";
-import GuestHome from "./GuestHome";
-import ForgotPassword from "./ForgotPassword/ForgotPassword";
 
+import MainPage from "./Landing Page/Mainpage";
+import Registration from "../src/Registration/Registration"
+import Student from "./Admin/Student/Student"
+import Guest from "./Admin/Guest/Guest"
+import Dashboard from "./Admin/Dashboard"
+import Room from "./Admin/Room/Room"
+import StudentLogin from "./Login/StudentLogin"
+import GuestLogin from "./Login/GuestLogin"
+import AdminLogin from "./Login/AdminLogin"
+import SignupGuest from "./Signup/SignupGuest"
+import SignupStudent from "./Signup/SignupStudent"
+import StudentHome from "./Student Home Page/StudentHome"
+import ComplaintBox from "./Student Home Page/ComplaintBox"
+import Review from "./Guest Home page/Review"
+import GuestHome from "./Guest Home page/GuestHome"
+import StudentRoom from "./Admin/Room/RoomManagement/StudentRoom"
+import GuestRoom from "./Admin/Room/RoomManagement/GuestRoom"
+import ForgotPassword from "./ForgotPassword/ForgotPassword"
+import ForgotPassNext from "./ForgotPassword/ForgotPassNext"
+import Randomtests from "./Dummytest/Randomtests"
+ 
 export default function App(){
     return(
         
         <BrowserRouter>
         <Routes>
             <Route path='/' exact={true} element={< MainPage/>} /> 
-            <Route path='/land' exact={true} element={< Landing/>} /> 
+            
             <Route path='/register' exact={true} element={<Registration/>} />
-            <Route path='/student' exact={true} element={<Student />} />
-            <Route path='/guest' exact={true} element={<Guest />} /> 
+            <Route path='/adminstudent' exact={true} element={<Student />} />
+            <Route path='/adminguest' exact={true} element={<Guest />} /> 
             <Route path='/login' exact={true} element={<StudentLogin />} />
             <Route path='/dashboard' exact={true} element={<Dashboard />} />
-            <Route path='/room' exact={true} element={<Room />} /> 
+            <Route path='/adminroom' exact={true} element={<Room />} /> 
             <Route path='/guestlogin' exact={true} element={<GuestLogin />} />
             < Route path='/adminlogin' exact={true} element={<AdminLogin />} />
-            < Route path='/signupstudent' exact={true} element={<Signup />} /> 
+            < Route path='/signupstudent' exact={true} element={<SignupGuest />} /> 
+            < Route path='/signupstudent' exact={true} element={<SignupStudent />} /> 
             < Route path='/studenthome' exact={true} element={<StudentHome/>} />
-            < Route path='/review' exact={true} element={<Review/>} />
             < Route path='/complaint' exact={true} element={<ComplaintBox/>} />
             < Route path='/guesthome' exact={true} element={<GuestHome/>} />
+            < Route path='/review' exact={true} element={<Review/>} />
+            < Route path='/sturoommng' exact={true} element={<StudentRoom/>} />
+            < Route path='/sturoommng' exact={true} element={<GuestRoom/>} />
             < Route path='/forgot' exact={true} element={<ForgotPassword/>} />     
+            < Route path='/forgotnext' exact={true} element={<ForgotPassNext/>} />
+            < Route path='/test' exact={true} element={<Randomtests/>} />
             
         </Routes>
         </BrowserRouter>
