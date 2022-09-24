@@ -91,7 +91,7 @@ let formvalue={
 
     const navigate=useNavigate();
     const gototerms=()=>{
-        navigate("/termsandcondition");
+        navigate("/terms");
     }
 
     return(

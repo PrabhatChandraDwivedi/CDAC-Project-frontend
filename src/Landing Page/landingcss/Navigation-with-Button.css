@@ -1,11 +1,5 @@
 body {margin:0;}
 
- /* .navbar-fixed-top {
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}  */
 
 .navigation-clean-button {
   background: #fff;
@@ -313,7 +307,7 @@ h1 .brand {
   background-color: #f1f1f1;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+  z-index: 2;
 }
 
 .dropdown-content a {

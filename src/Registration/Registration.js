@@ -35,12 +35,11 @@ export default function Registration(){
     const [admission_dateerror, setadmission_dateerror] = useState(false);
     const [branch, setbranch] = useState("");
     const [data, setData] = useState([]);
+    
 
 
     
-    const header = {
-        auth: "cdac-student"
-    }
+    
 
     
 
@@ -165,18 +164,189 @@ export default function Registration(){
             }
             setadmission_date(value);
         }
-         
 
+        /////////////////////////////////ac logic goes inside////////////////////////////////
+
+
+        const callTheDb =async(room_no,bed_no,wing)=>{
+
+            console.log(room_no+bed_no+wing);
+
+      return  await  axios.get("http://localhost:8080/checkoneroom/"+room_no+"/"+bed_no+"/"+wing,{ mode: 'no-cors' }).then((res)=>{
+            console.log(res.data);
+            return res.data
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+
+    const callTheDbFemale = async (room_no,bed_no,wing)=>{
+        console.log(room_no+bed_no+wing);
+      await  axios.get("http://localhost:8080/checkoneroom"+room_no+"/"+bed_no+"/"+wing,{ mode: 'no-cors' }).then((res)=>{
+            var x=1;
+            return x
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+
+        const allocateRoom = async (wingname,formvalue)=>{
+
+
+            // || (index>300&&index<=310)
+         //var Roomnumber = new Array();
          
-    const Submithandle = (e) => {
+         
+         for (let index = 101; index <=510 ; index++) {
+         
+         if (index<=110 || (index>200 && index<=210) || (index>300&&index<=310) || (index>400&&index<=410) || (index>500&&index<=510)) {
+         
+           
+             //   Roomnumber.push("S"+index+" "+"A")
+                
+                   let room_no= "S"+index
+                   let  bed_no= "A"
+                   let wing=wingname
+                
+           //     Roomnumber.push("S"+index+" "+"B")
+                
+                 let   room_no1= "S"+index
+                 let   bed_no1= "B"
+                 let   wing1=wingname
+                
+                if (gender==="Male") {
+                 
+                    if (await callTheDb(room_no,bed_no,wing)===false) {
+                        //do allocation and then break
+                       // aclogic()
+                       console.log(formvalue);
+                        console.log("hey do the logic dont add delete button");
+                        break;
+                    }
+                    
+                    if (await callTheDb(room_no1,bed_no1,wing1)===true) {
+                        //do allocation and then break
+                    }
+                }
+         
+                if(gender==="Female"){
+                 if (await callTheDbFemale(room_no,bed_no,wing)===true) {
+                     //do allocation and then break
+                 }
+                 
+                 if (await callTheDbFemale(room_no1,bed_no1,wing1)===true) {
+                     //do allocation and then break
+                 }
+                }
+         }
+         
+         else 
+         {
+            continue;
+         }
+         }
+         //console.log(Roomnumber)
+         }
+
+        const checkForTheMaleWinginit =async (count,formvalue)=>{
+            if(count<=100){
+                let wing ="Alpha"
+                
+                console.log("in win"+wing);
+                console.log(wing);
+               await allocateRoom(wing,formvalue) 
+            }
+
+            else if (count>100&&count<=200) {
+                let wing ="Delta"
+               await allocateRoom(wing,formvalue) 
+            }
+
+            else if(count>200&&count<=300){
+                let wing ="Sigma"
+              await  allocateRoom(wing,formvalue) 
+            }
+            else if (count>300 && count<=400) {
+                let wing ="Omega"
+              await  allocateRoom(wing,formvalue) 
+            }
+        }
+
+        const checkForTheFemaleWinginit =async (count,formvalue)=>{
+            if(count<=100){
+                let wing ="Infinity"
+                await  allocateRoom(wing,formvalue) 
+            }
+
+            else if(count>100&&count<=200) {
+                let wing ="Nebula"
+                await  allocateRoom(wing,formvalue) 
+            }
+
+            else if(count>200&&count<=300){
+                let wing ="Candella"
+                await  allocateRoom(wing,formvalue) 
+            }
+            else if(count>300 && count<=400) {
+                let wing ="Gamma"
+                await   allocateRoom(wing,formvalue) 
+            }
+        }
+
+
+
+
+
+
+        const callTheMaleDbForWing = async ()=>{
+
+        return    await  axios.get("http://localhost:8080/countroom",{ mode: 'no-cors' }).then((res)=>{
+                
+                
+                 console.log(res.data)
+                 return res.data
+               
+             }).catch((err)=>{
+                 console.log(err);
+             })
+ 
+         }
+ 
+         const callTheFemaleDbForWing =async () =>{
+           await  axios.get("http://localhost:8080/getrooms",{ mode: 'no-cors' }).then((res)=>{
+                 var x=1;
+                 return x
+             }).catch((err)=>{
+                 console.log(err);
+             })
+         }
+        
+        
+        const checkTheGender = async(formvalue)=>{
+            if (gender==="Male") {
+                console.log("hi2")
+                var countmale =   await   callTheMaleDbForWing()
+                console.log("hey"+countmale);
+                await checkForTheMaleWinginit(countmale,formvalue)
+     //   console.log(countmale)
+             
+            }
+         if (gender==="Female") {
+                var countfemale= await callTheFemaleDbForWing()
+                await  checkForTheFemaleWinginit(countfemale,formvalue)
+            }
+        }
+         
+    const Submithandle = async (e) => {
          e.preventDefault();
+         
          if(student_full_name.length===0||parrent_full_name.length===0||gender.length===0||email_id.length===0||student_mo_no.length===0
             ||parrent_mo_no.length===0||dob.length===0||address.length===0||city.length===0||Pincode.length===0||state.length===0||
             collage_name.length===0||admission_date.length===0||branch.length===0||course_Applied.length===0){
              window.alert("Don't leave any field empty all fields are mandatory");
          }
          else{
-        let formvalue = {
+        var formvalue = {
             state, 
             address,
             gender, 
@@ -194,15 +364,23 @@ export default function Registration(){
             parrent_full_name,
         }
         
-        console.log(formvalue);
+       
+       // console.log(formvalue)
+        
         
        
         var response = window.confirm("Submit your registration form, please Confirm!");
         if (response) {
             e.preventDefault();
-            axios.post("http://localhost:8080/test", formvalue, { headers: header })
+
+            await checkTheGender(formvalue)
+            console.log(formvalue);
+
+            axios.post("http://localhost:8080/test", formvalue)
                 .then((res) => {
                     console.log(res);
+                }).catch((err)=>{
+                    console.log(err);
                 })
                 
            
@@ -249,7 +427,7 @@ export default function Registration(){
      
 
     function displaydata() {
-        fetch("http://localhost:3000/student",{headers: header}).then((resp) => {
+        fetch("http://localhost:3000/student").then((resp) => {
             resp.json().then((response) => {
                 // console.log("res", response);
                 setData(response)
