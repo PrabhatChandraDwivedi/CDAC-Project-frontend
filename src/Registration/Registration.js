@@ -168,6 +168,26 @@ export default function Registration(){
         /////////////////////////////////ac logic goes inside////////////////////////////////
 
 
+
+        const aclogic = async(acformvalue)=>{
+          return  await axios.post("http://localhost:8080/insert",acformvalue,{ mode: 'no-cors' }).then((res)=>{
+                console.log(res.data);
+                return res.data
+            }).catch((err)=>{
+                console.log(err);
+            })
+        }
+
+        const aclogicfemale = async(acformvalue)=>{
+            return  await axios.post("http://localhost:8080/finsert",acformvalue,{ mode: 'no-cors' }).then((res)=>{
+                  console.log(res.data);
+                  return res.data
+              }).catch((err)=>{
+                  console.log(err);
+              })
+          }
+
+
         const callTheDb =async(room_no,bed_no,wing)=>{
 
             console.log(room_no+bed_no+wing);
@@ -182,9 +202,10 @@ export default function Registration(){
 
     const callTheDbFemale = async (room_no,bed_no,wing)=>{
         console.log(room_no+bed_no+wing);
-      await  axios.get("http://localhost:8080/checkoneroom"+room_no+"/"+bed_no+"/"+wing,{ mode: 'no-cors' }).then((res)=>{
-            var x=1;
-            return x
+    return  await  axios.get("http://localhost:8080/fcheckoneroom/"+room_no+"/"+bed_no+"/"+wing,{ mode: 'no-cors' },{headers: { 'Content-Type': 'multipart/form-data',
+    'Access-Control-Allow-Origin': '*'}}).then((res)=>{
+        console.log(res.data);
+        return res.data
         }).catch((err)=>{
             console.log(err);
         })
@@ -218,24 +239,87 @@ export default function Registration(){
                  
                     if (await callTheDb(room_no,bed_no,wing)===false) {
                         //do allocation and then break
-                       // aclogic()
-                       console.log(formvalue);
+                        let acformvalue ={
+                            student_name:"Prabhat",
+                            room_no:room_no,
+                            bed_no:bed_no,
+                            wing:wing,
+                            student:formvalue,
+                            from_date:admission_date,
+                            till_date:"03-03-2022",
+                            fees:1500,
+                            dues:0,
+                            feepaid:1500,
+                            feestatus:true
+                        }
+                        console.log(acformvalue);
+                      await  aclogic(acformvalue)
+            
                         console.log("hey do the logic dont add delete button");
                         break;
                     }
                     
-                    if (await callTheDb(room_no1,bed_no1,wing1)===true) {
-                        //do allocation and then break
+                    if (await callTheDb(room_no1,bed_no1,wing1)===false) {
+                        let acformvalue ={
+                            student_name:"Prabhat",
+                            room_no:room_no1,
+                            bed_no:bed_no1,
+                            wing:wing1,
+                            student:formvalue,
+                            from_date:admission_date,
+                            till_date:"03-03-2022",
+                            fees:1500,
+                            dues:0,
+                            feepaid:1500,
+                            feestatus:true
+                        }
+                        console.log(acformvalue);
+                      await  aclogic(acformvalue)
+                      console.log("hey breaking now");
+                      break;
                     }
                 }
          
                 if(gender==="Female"){
-                 if (await callTheDbFemale(room_no,bed_no,wing)===true) {
-                     //do allocation and then break
+                 if (await callTheDbFemale(room_no,bed_no,wing)===false) {
+                    let acformvalue ={
+                        student_name:"Chaitra",
+                        room_no:room_no,
+                        bed_no:bed_no,
+                        wing:wing,
+                        student:formvalue,
+                        from_date:admission_date,
+                        till_date:"03-03-2022",
+                        fees:1500,
+                        dues:0,
+                        feepaid:1500,
+                        feestatus:true
+                    }
+                    console.log(acformvalue);
+                      await  aclogicfemale(acformvalue)
+                      console.log("hey breaking now");
+                      break;
+
                  }
                  
-                 if (await callTheDbFemale(room_no1,bed_no1,wing1)===true) {
-                     //do allocation and then break
+                 if (await callTheDbFemale(room_no1,bed_no1,wing1)===false) {
+                    let acformvalue ={
+                        student_name:"Chaitra",
+                        room_no:room_no1,
+                        bed_no:bed_no1,
+                        wing:wing1,
+                        student:formvalue,
+                        from_date:admission_date,
+                        till_date:"03-03-2022",
+                        fees:1500,
+                        dues:0,
+                        feepaid:1500,
+                        feestatus:true
+                    }
+                    console.log(acformvalue);
+                      await  aclogicfemale(acformvalue)
+                      console.log("hey breaking now");
+                      break;
                  }
                 }
          }
@@ -313,9 +397,9 @@ export default function Registration(){
          }
  
          const callTheFemaleDbForWing =async () =>{
-           await  axios.get("http://localhost:8080/getrooms",{ mode: 'no-cors' }).then((res)=>{
-                 var x=1;
-                 return x
+         return  await  axios.get("http://localhost:8080/fcountroom",{ mode: 'no-cors' }).then((res)=>{
+            console.log(res.data)
+            return res.data
              }).catch((err)=>{
                  console.log(err);
              })
@@ -347,21 +431,21 @@ export default function Registration(){
          }
          else{
         var formvalue = {
-            state, 
-            address,
-            gender, 
-            city,
+            state:state, 
+            address:address,
+            gender:gender, 
+            city:city,
             pincode:Pincode,
-            branch,
+            branch:branch,
             dob,
-            course_Applied, 
-            email_id,
-            parrent_mo_no,
-            collage_name,
+            course_applied:course_Applied, 
+            email_id:email_id,
+            parent_mo_no:parrent_mo_no,
+            college_name:collage_name,
             admission_date,
             student_mo_no,
             student_full_name,
-            parrent_full_name,
+            parent_full_name:parrent_full_name
         }
         
        
@@ -376,14 +460,6 @@ export default function Registration(){
             await checkTheGender(formvalue)
             console.log(formvalue);
 
-            axios.post("http://localhost:8080/test", formvalue)
-                .then((res) => {
-                    console.log(res);
-                }).catch((err)=>{
-                    console.log(err);
-                })
-                
-           
             setstate("");
             setaddress("");
             setcity("");
@@ -411,7 +487,7 @@ export default function Registration(){
 
         }
         else {
-            // e.preventDefault();
+            e.preventDefault();
             // console.log(formvalue);
             console.log("Form Submission Cancelled")
         }
@@ -421,19 +497,9 @@ export default function Registration(){
 
 
     useEffect(() => {
-        displaydata();
+       
     }, [])
 
-     
-
-    function displaydata() {
-        fetch("http://localhost:3000/student").then((resp) => {
-            resp.json().then((response) => {
-                // console.log("res", response);
-                setData(response)
-            })
-        })
-    }
 
     return(
    <form> <div class="mydiv" >
