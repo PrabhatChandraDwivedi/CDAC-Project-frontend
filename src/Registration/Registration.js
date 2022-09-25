@@ -37,6 +37,13 @@ export default function Registration(){
     const [data, setData] = useState([]);
     
 
+    //date splitter function
+//     const dateSplitter =async(value)=>{
+        
+// const myArray = value.split("-");
+// const mydate = myArray[2]+"-"+myArray[1]+"-"+myArray[0]
+// return await mydate
+//     }
 
     
     
@@ -442,7 +449,7 @@ export default function Registration(){
             email_id:email_id,
             parent_mo_no:parrent_mo_no,
             college_name:collage_name,
-            admission_date,
+            admission_date:admission_date,
             student_mo_no,
             student_full_name,
             parent_full_name:parrent_full_name

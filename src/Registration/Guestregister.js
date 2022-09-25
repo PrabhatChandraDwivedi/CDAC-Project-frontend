@@ -107,100 +107,9 @@ const handleaadhar_no = (e) => {
     setpincode(value);
 
     }
-    ////ac logic
-    const allocateRoom = (wingname)=>{
 
 
-      // || (index>300&&index<=310)
-   //var Roomnumber = new Array();
-   
-   
-   for (let index = 101; index <=410 ; index++) {
-   
-   if (index<=110 || (index>200 && index<=210) || (index>300&&index<=310) || (index>400&&index<=410)) {
-   
-     
-   
-          
-             let room_no= index;
-             let wing=wingname;
-        
-          
-     
-         
-          if (gender==="Male") {
-           
-              if (callTheDb(room_no)===false) {
-                  //do allocation and then break
-              }
-              
-              
-          }
-   
-          if(gender==="Female"){
-           if (callTheDbFemale(room_no)===true) {
-               //do allocation and then break
-           }
-           
-          
-          }
-   }
-   
-   else 
-   {
-      continue;
-   }
-   }
-
-   }
-
-   const callTheDb =(room_no)=>{
-     
-     
-     
-  return  axios.get("http://localhost:8080/getguestrooms/"+room_no,{ mode: 'no-cors' }).then((res)=>{
-        console.log(res.data)
-    return res.data
-    }).catch((err)=>{
-        console.log(err);
-    })
-}
-
-const callTheDbFemale = (room_no)=>{
-    axios.get("http://localhost:8080/fgetguestrooms/"+room_no,{ mode: 'no-cors' }).then((res)=>{
-        var x=1;
-        return x
-    }).catch((err)=>{
-        console.log(err);
-    })
-}
-
-
-
-
-
-    const checkTheGender =()=>{
-      if (gender==="Male") {
-          let wing ="Lush"
-          allocateRoom(wing)
-      }
-else if (gender==="Female") {
-          let wing ="Crimson"
-          allocateRoom(wing)
-      }
-  }
-
-
-
-
-
-
-
-
-
-
-
-const Submithandle = (e) => {
+ const Submithandle = async(e) => {
    e.preventDefault();
    if(guestName.length===0||gender.length===0||mobile_no.length===0||date_Of_Birth.length===0||check_in.length===0||
   check_out.length===0||room_Type.length===0||id_Proof.length===0||aadhar_no.length===0||address.length===0||city.length===0||
@@ -210,28 +119,32 @@ const Submithandle = (e) => {
   let formvalue = {
     aadhar_no,
    gender: gender,
-    guestName,
-    check_in,
-    check_out,
-    mobile_no,
-    date_Of_Birth,
-    room_Type,
-    id_Proof,
+   guest_name:guestName,
+    check_in_date:check_in,
+    check_out_date:check_out,
+    mobile_no:mobile_no,
+    dob:date_Of_Birth,
+    room_type:room_Type,
+    id_proof:id_Proof,
     address,
     city,
     state,
     pincode,
   }
-
-  checkTheGender()
-
-  console.log(formvalue);
-
+ 
+  
+ 
   var response = window.confirm("Submit your registration form, please Confirm!");
-  e.preventDefault();
-  axios.post("http://localhost:8080/insertguest", formvalue, { headers: header })
   if (response) {
-      e.preventDefault();
+  e.preventDefault();
+  //first checking the gender
+  
+  await checkTheGender(formvalue)
+  console.log("nooo nooo nooo nooo")
+  
+  console.log(formvalue);
+ 
+    
      setguest_full_name("");
      setgender("");
      setguest_mo_no("");
@@ -258,12 +171,142 @@ const Submithandle = (e) => {
       console.log("Form Submission Cancelled")
   } }
 
-};
+ };
+
+///////////////////////////////////ac logic starts here////////////////////////////////
+
+const aclogicGuest = async(acformvalue)=>{
+  return await axios.post("http://localhost:8080/insertguest",acformvalue,{ mode: 'no-cors' }).then((res)=>{
+console.log(res.data)
+return res.data
+  }).catch((err)=>{
+console.log(err);
+  })
+}
+
+const aclogicGuestFemale = async(acformvalue)=>{
+  return await axios.post("http://localhost:8080/finsertguest",acformvalue,{ mode: 'no-cors' }).then((res)=>{
+console.log(res.data)
+return res.data
+  }).catch((err)=>{
+console.log(err);
+  })
+}
 
 
-    
 
- return(<div>
+const allocateRoom = async (wingname,formvalue)=>{
+  // || (index>300&&index<=310)
+//var Roomnumber = new Array();
+for (let index = 101; index <=410 ; index++) {
+
+if (index<=110 || (index>200 && index<=210) || (index>300&&index<=310) || (index>400&&index<=410)) {
+
+ 
+         let room_no= index
+         let wing=wingname 
+     
+      if (gender==="Male") {
+       
+          if (await callTheDb(room_no)===false) {
+              let acformvalue ={
+                room_no:room_no,
+                wing,
+                guest_name:"Prabhat",
+                guest:formvalue,
+                from_date:check_in,
+                till_date:check_out,
+                fees:1500,
+                dues:0,
+                feepaid:1500,
+                feestatus:true
+              }
+             await aclogicGuest(acformvalue)
+              console.log(room_no);
+              break;
+              
+          }
+          
+          
+      }
+
+      if(gender==="Female"){
+       if (await callTheDbFemale(room_no)===false) {
+           //do allocation and then break
+           let acformvalue ={
+            room_no:room_no,
+            wing,
+            guest_name:"Chaitra",
+            guest:formvalue,
+            from_date:check_in,
+            till_date:check_out,
+            fees:1500,
+            dues:0,
+            feepaid:1500,
+            feestatus:true
+          }
+        await  aclogicGuestFemale(acformvalue)
+              console.log(room_no);
+              break;
+
+
+
+       }
+       
+      
+      }
+}
+
+else 
+{
+  continue;
+}
+}
+
+}
+
+
+
+
+           const callTheDb = async (room_no)=>{
+              return await axios.get("http://localhost:8080/getguestrooms/"+room_no,{ mode: 'no-cors' }).then((res)=>{
+                console.log(res.data)     
+              return res.data
+                   
+               }).catch((err)=>{
+                   console.log(err);
+               })
+           }
+
+          const callTheDbFemale = async (room_no)=>{
+            return await axios.get("http://localhost:8080/fgetguestrooms/"+room_no,{ mode: 'no-cors' }).then((res)=>{
+                   return res.data
+                   
+               }).catch((err)=>{
+                   console.log(err);
+               })
+           }
+
+           const checkTheGender = async(formvalue)=>{
+               if (gender==="Male") {
+                  let wing = "Lush"
+                 await  allocateRoom(wing,formvalue)
+               }
+         else if (gender==="Female") {
+                   let wing = "Crimson"
+                  await allocateRoom(wing,formvalue)
+               }
+           }
+
+
+
+           
+           
+          
+          
+           
+ return(
+ <div>
 
 
 <form action="">
