@@ -2,7 +2,7 @@ import React,{useEffect, useState} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 export default function Student() {
-  const[tdata,setTdata]=useState([]);
+  const[maledata,setMaleData]=useState([]);
   const navigate=useNavigate();
     const gotoguest=()=>{
         navigate("/guest");
@@ -16,29 +16,50 @@ export default function Student() {
 const gotoregistration=()=>{
   navigate("/register");
 }
-  function displaydata(){
-      //@GetMapping("/getall")
-     axios.get("http://localhost:8080/getall",{mode:'no-cors'})
-     .then((response) => {
-        // console.log(response.data);
-        // response.json().then((response) => {
-          setTdata(response.data);
-          // console.log("res", response);
+  // function displaydata(){
+  //     //@GetMapping("/getall")
+  //    axios.get("http://localhost:8080/getall",{mode:'no-cors'})
+  //    .then((response) => {
+  //       // console.log(response.data);
+  //       // response.json().then((response) => {
+  //         setTdata(response.data);
+  //         // console.log("res", response);
           
-      // }).catch((err)=>{
-      //   console.log(err);
-      // })
+  //     // }).catch((err)=>{
+  //     //   console.log(err);
+  //     // })
       
-      }).catch((err) => {
-        console.log(err);
-      })
-    }
+  //     }).catch((err) => {
+  //       console.log(err);
+  //     })
+  //   }
 
-    //react lifecycle components... render() compondidUpdate, com
-    ///backend to frontend
-    useEffect(() => {
-      displaydata();
-    }, [])
+  //   //react lifecycle components... render() compondidUpdate, com
+  //   ///backend to frontend
+  //   useEffect(() => {
+  //     displaydata();
+  //   }, [])
+
+  function displaydataMale(){
+    //@GetMapping("/getall")
+   axios.get("http://localhost:8080/api/dao/user",{mode:'no-cors'})
+   .then((response) => {
+     
+        setMaleData(response.data);
+        console.log(response.data)
+   
+    
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+  
+  
+  
+   useEffect(() => {
+    displaydataMale();
+  }, [])
+  
 
   return (
     <div className="pcdscroll">
@@ -256,26 +277,26 @@ const gotoregistration=()=>{
                     <table class="table my-0" id="dataTable">
                       <thead>
                         <tr>
-                          <th>S.no</th>
-                          <th>Branch</th>
-                          <th>Fee details</th>
-                          <th>Room no.</th>
-                          <th>Course</th>
-                          <th>Gender</th>
+                          <th>Id</th>
                           <th>Name</th>
-                          <th>Student Id</th>
-                          <th>Edit</th>
-                          <th>Delete</th>
+                          <th>Stu_Mobile</th>
+                          <th>Email</th>
+                          <th>Gender</th>
+                          <th>Course</th>
+                          <th>Admission Date</th>
+                          <th>Branch</th>
+                          <th>Parent_Num</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                       {
-                        tdata.map(function (item){
+                        maledata.map(function (item){
                          return   <tr>
                                 {/* <th scope="row">1</th> */}
-                                <td>{item.s_num}</td>
-                                <td>{item.branch}</td>
-                                <td>{item.fee_details}</td>
+                                <td>{item.room_no}</td>
+                                <td>{item.bed_no}</td>
+                                <td>{item.wing}</td>
                                 <td>{item.room_no}</td>
                                 <td>{item.course}</td>
                                 <td>{item.gender}</td>
@@ -290,126 +311,9 @@ const gotoregistration=()=>{
                           } )
                     }
 
-                        {/* <tr>
-                          <td>2</td>
-                          <td>
-                            <i class="fa-solid fa-user"></i>&nbsp;&nbsp;Student
-                            2
-                          </td>
-                          <td>464564554</td>
-                          <td>PG-diploma</td>
-                          <td>DAC</td>
-                          <td>Paid</td>
-                          <td>11 A</td>
-                          <td>
-                            <button type="submit" class="btn btn-warning">
-                              <i class="fa-solid fa-user-pen"></i>
-                            </button>
-                          </td>
-                          <td>
-                            <button type="submit" class="btn btn-danger">
-                              <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>
-                            <i class="fa-solid fa-user"></i>&nbsp;&nbsp;Student
-                            2
-                          </td>
-                          <td>464564554</td>
-                          <td>PG-diploma</td>
-                          <td>DAC</td>
-                          <td>Paid</td>
-                          <td>11 A</td>
-                          <td>
-                            <button type="submit" class="btn btn-warning">
-                              <i class="fa-solid fa-user-pen"></i>
-                            </button>
-                          </td>
-                          <td>
-                            <button type="submit" class="btn btn-danger">
-                              <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>
-                            <i class="fa-solid fa-user"></i>&nbsp;&nbsp;Student
-                            2
-                          </td>
-                          <td>464564554</td>
-                          <td>PG-diploma</td>
-                          <td>DAC</td>
-                          <td>Paid</td>
-                          <td>11 A</td>
-                          <td>
-                            <button type="submit" class="btn btn-warning">
-                              <i class="fa-solid fa-user-pen"></i>
-                            </button>
-                          </td>
-                          <td>
-                            <button type="submit" class="btn btn-danger">
-                              <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>
-                            <i class="fa-solid fa-user"></i>&nbsp;&nbsp;Student
-                            2
-                          </td>
-                          <td>464564554</td>
-                          <td>PG-diploma</td>
-                          <td>DAC</td>
-                          <td>Paid</td>
-                          <td>11 A</td>
-                          <td>
-                            <button type="submit" class="btn btn-warning">
-                              <i class="fa-solid fa-user-pen"></i>
-                            </button>
-                          </td>
-                          <td>
-                            <button type="submit" class="btn btn-danger">
-                              <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                          </td>
-                        </tr> */}
+                       
                       </tbody>
-                      <tfoot>
-                        <tr>
-                          <td>
-                            <strong>S.no</strong>
-                          </td>
-                          <td>
-                            <strong>Name</strong>
-                          </td>
-                          <td>
-                            <strong>Unique no.</strong>
-                          </td>
-                          <td>
-                            <strong>Course</strong>
-                          </td>
-                          <td>
-                            <strong>Branch</strong>
-                          </td>
-                          <td>
-                            <strong>Fee details</strong>
-                          </td>
-                          <td>
-                            <strong>Room no.</strong>
-                          </td>
-                          <td>
-                            <strong>Edit</strong>
-                          </td>
-                          <td>
-                            <strong>Delete</strong>
-                          </td>
-                        </tr>
-                      </tfoot>
+                     
                     </table>
                   </div>
                   <div class="row">

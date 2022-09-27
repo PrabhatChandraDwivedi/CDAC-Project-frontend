@@ -1,0 +1,93 @@
+
+.CBody {
+    scroll-behavior: auto
+}
+
+.form-por {
+    box-shadow: 0px 0px 4px 1px #353535;
+    border :solid 2px #02030369;
+    width: 33%;
+    height: 100%;
+    position: relative;
+    top: 18px;
+    left: 34%;
+    padding: 13px;
+    border-radius: 17px;
+    background-color:initial;
+    color: darkblue;
+}
+#forinline{
+    position: relative;
+    left: 0%;
+}
+.form-group input{
+    height: 39px;
+    font-size: 18px;
+}
+
+.formdetail {
+    position: relative;
+    bottom: 8%
+}
+
+.formdetail div {
+    margin-top: 14px;
+    position: relative;
+    bottom: 7px;
+}
+
+.submit {
+    font-weight: bold;
+    width: 30%;
+    border-color: #0a0c09;
+    color: black;
+    margin-right: 20px;
+}
+
+.submit:hover {
+    font-style: italic;
+    border-color: #0a0c09;
+    position: relative;
+    top: 2px;
+    background-color: blue;
+    color: white;
+}
+
+.reset {
+    font-weight: bold;
+    width: 30%;
+    border-color: #0a0c09;
+    color: black;
+}
+
+.reset:hover {
+    font-style: italic;
+    border-color: #0a0c09;
+    position: relative;
+    top: 2px;
+    background-color: yellow;
+    color: black;
+}
+
+.back{
+    font-weight: bold;
+    width: 30%;
+    border-color: #0a0c09;
+    color: black;
+    margin-left: 20px;
+}
+
+.back:hover {
+    font-style: italic;
+    color: white;
+    border-color: #0a0c09;
+    position: relative;
+    top: 2px;
+    background-color: red;
+}
+
+  #bidDiv{
+    height:822px;
+    background: rgb(229,237,255);
+    background: linear-gradient(315deg, rgba(229,237,255,1) 21%, rgba(108,174,243,1) 49%, rgba(239,251,250,1) 80%);
+  }

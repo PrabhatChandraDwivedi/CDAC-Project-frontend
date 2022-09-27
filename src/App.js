@@ -23,6 +23,7 @@ import ForgotPassNext from "./ForgotPassword/ForgotPassNext"
 import Randomtests from "./Dummytest/Randomtests"
 import TermsAndConditions from "./Signup/TermsAndConditions";
 import Guestregister from "./Registration/Guestregister";
+import UpdateStudent from "./Admin/Room/RoomManagement/UpdateStudent";
  
 export default function App(){
     return(
@@ -52,6 +53,7 @@ export default function App(){
             < Route path='/test' exact={true} element={<Randomtests/>} />
             < Route path='/terms' exact={true} element={<TermsAndConditions/>} />
             < Route path='/guestregister' exact={true} element={<Guestregister/>} />
+            < Route path='/adminsturoomupdate' exact={true} element={<UpdateStudent/>} />
         </Routes>
         </BrowserRouter>
        

@@ -38,12 +38,12 @@ export default function Registration(){
     
 
     //date splitter function
-//     const dateSplitter =async(value)=>{
+    const dateSplitter =async(value)=>{
         
-// const myArray = value.split("-");
-// const mydate = myArray[2]+"-"+myArray[1]+"-"+myArray[0]
-// return await mydate
-//     }
+const myArray = value.split("-");
+const mydate = myArray[2]+"-"+myArray[1]+"-"+myArray[0]
+return await mydate
+    }
 
     
     
@@ -177,7 +177,7 @@ export default function Registration(){
 
 
         const aclogic = async(acformvalue)=>{
-          return  await axios.post("http://localhost:8080/insert",acformvalue,{ mode: 'no-cors' }).then((res)=>{
+          return  await axios.post("http://localhost:8080/api/roomalloc/insert",acformvalue,{ mode: 'no-cors' }).then((res)=>{
                 console.log(res.data);
                 return res.data
             }).catch((err)=>{
@@ -186,7 +186,7 @@ export default function Registration(){
         }
 
         const aclogicfemale = async(acformvalue)=>{
-            return  await axios.post("http://localhost:8080/finsert",acformvalue,{ mode: 'no-cors' }).then((res)=>{
+            return  await axios.post("http://localhost:8080/api/roomalloc/finsert",acformvalue,{ mode: 'no-cors' }).then((res)=>{
                   console.log(res.data);
                   return res.data
               }).catch((err)=>{
@@ -199,7 +199,7 @@ export default function Registration(){
 
             console.log(room_no+bed_no+wing);
 
-      return  await  axios.get("http://localhost:8080/checkoneroom/"+room_no+"/"+bed_no+"/"+wing,{ mode: 'no-cors' }).then((res)=>{
+      return  await  axios.get("http://localhost:8080/api/roomalloc/checkoneroom/"+room_no+"/"+bed_no+"/"+wing,{ mode: 'no-cors' }).then((res)=>{
             console.log(res.data);
             return res.data
         }).catch((err)=>{
@@ -209,7 +209,7 @@ export default function Registration(){
 
     const callTheDbFemale = async (room_no,bed_no,wing)=>{
         console.log(room_no+bed_no+wing);
-    return  await  axios.get("http://localhost:8080/fcheckoneroom/"+room_no+"/"+bed_no+"/"+wing,{ mode: 'no-cors' },{headers: { 'Content-Type': 'multipart/form-data',
+    return  await  axios.get("http://localhost:8080/api/roomalloc/fcheckoneroom/"+room_no+"/"+bed_no+"/"+wing,{ mode: 'no-cors' },{headers: { 'Content-Type': 'multipart/form-data',
     'Access-Control-Allow-Origin': '*'}}).then((res)=>{
         console.log(res.data);
         return res.data
@@ -247,16 +247,16 @@ export default function Registration(){
                     if (await callTheDb(room_no,bed_no,wing)===false) {
                         //do allocation and then break
                         let acformvalue ={
-                            student_name:"Prabhat",
+                            student_name:student_full_name,
                             room_no:room_no,
                             bed_no:bed_no,
                             wing:wing,
                             student:formvalue,
-                            from_date:admission_date,
-                            till_date:"03-03-2022",
-                            fees:1500,
+                            from_date:await dateSplitter(admission_date),
+                            till_date:"03-03-2023",
+                            fees:80000,
                             dues:0,
-                            feepaid:1500,
+                            feepaid:0,
                             feestatus:true
                         }
                         console.log(acformvalue);
@@ -268,16 +268,16 @@ export default function Registration(){
                     
                     if (await callTheDb(room_no1,bed_no1,wing1)===false) {
                         let acformvalue ={
-                            student_name:"Prabhat",
+                            student_name:student_full_name,
                             room_no:room_no1,
                             bed_no:bed_no1,
                             wing:wing1,
                             student:formvalue,
-                            from_date:admission_date,
-                            till_date:"03-03-2022",
-                            fees:1500,
+                            from_date:await dateSplitter(admission_date),
+                            till_date:"03-03-2023",
+                            fees:80000,
                             dues:0,
-                            feepaid:1500,
+                            feepaid:0,
                             feestatus:true
                         }
                         console.log(acformvalue);
@@ -290,16 +290,16 @@ export default function Registration(){
                 if(gender==="Female"){
                  if (await callTheDbFemale(room_no,bed_no,wing)===false) {
                     let acformvalue ={
-                        student_name:"Chaitra",
+                        student_name:student_full_name,
                         room_no:room_no,
                         bed_no:bed_no,
                         wing:wing,
                         student:formvalue,
-                        from_date:admission_date,
-                        till_date:"03-03-2022",
-                        fees:1500,
+                        from_date:await dateSplitter(admission_date),
+                        till_date:"03-03-2023",
+                        fees:80000,
                         dues:0,
-                        feepaid:1500,
+                        feepaid:0,
                         feestatus:true
                     }
                     console.log(acformvalue);
@@ -311,16 +311,16 @@ export default function Registration(){
                  
                  if (await callTheDbFemale(room_no1,bed_no1,wing1)===false) {
                     let acformvalue ={
-                        student_name:"Chaitra",
+                        student_name:student_full_name,
                         room_no:room_no1,
                         bed_no:bed_no1,
                         wing:wing1,
                         student:formvalue,
-                        from_date:admission_date,
-                        till_date:"03-03-2022",
-                        fees:1500,
+                        from_date:await dateSplitter(admission_date),
+                        till_date:"03-03-2023",
+                        fees:80000,
                         dues:0,
-                        feepaid:1500,
+                        feepaid:0,
                         feestatus:true
                     }
                     console.log(acformvalue);
@@ -391,7 +391,7 @@ export default function Registration(){
 
         const callTheMaleDbForWing = async ()=>{
 
-        return    await  axios.get("http://localhost:8080/countroom",{ mode: 'no-cors' }).then((res)=>{
+        return    await  axios.get("http://localhost:8080/api/roomalloc/countroom",{ mode: 'no-cors' }).then((res)=>{
                 
                 
                  console.log(res.data)
@@ -404,7 +404,7 @@ export default function Registration(){
          }
  
          const callTheFemaleDbForWing =async () =>{
-         return  await  axios.get("http://localhost:8080/fcountroom",{ mode: 'no-cors' }).then((res)=>{
+         return  await  axios.get("http://localhost:8080/api/roomalloc/fcountroom",{ mode: 'no-cors' }).then((res)=>{
             console.log(res.data)
             return res.data
              }).catch((err)=>{

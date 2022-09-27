@@ -32,7 +32,14 @@ export default function Guestregister (){
   const header = {
     auth: "cdac-student"
 }
-
+ //date splitter function
+ const dateSplitter =async(value)=>{
+        
+  const myArray = value.split("-");
+  const mydate = myArray[2]+"-"+myArray[1]+"-"+myArray[0]
+  return await mydate
+      }
+  
 
   const handleChange = (e) => {
 
@@ -176,7 +183,7 @@ const handleaadhar_no = (e) => {
 ///////////////////////////////////ac logic starts here////////////////////////////////
 
 const aclogicGuest = async(acformvalue)=>{
-  return await axios.post("http://localhost:8080/insertguest",acformvalue,{ mode: 'no-cors' }).then((res)=>{
+  return await axios.post("http://localhost:8080/api/roomalloc/insertguest",acformvalue,{ mode: 'no-cors' }).then((res)=>{
 console.log(res.data)
 return res.data
   }).catch((err)=>{
@@ -185,7 +192,7 @@ console.log(err);
 }
 
 const aclogicGuestFemale = async(acformvalue)=>{
-  return await axios.post("http://localhost:8080/finsertguest",acformvalue,{ mode: 'no-cors' }).then((res)=>{
+  return await axios.post("http://localhost:8080/api/roomalloc/finsertguest",acformvalue,{ mode: 'no-cors' }).then((res)=>{
 console.log(res.data)
 return res.data
   }).catch((err)=>{
@@ -212,13 +219,13 @@ if (index<=110 || (index>200 && index<=210) || (index>300&&index<=310) || (index
               let acformvalue ={
                 room_no:room_no,
                 wing,
-                guest_name:"Prabhat",
+                guest_name:guestName,
                 guest:formvalue,
                 from_date:check_in,
                 till_date:check_out,
                 fees:1500,
                 dues:0,
-                feepaid:1500,
+                feepaid:0,
                 feestatus:true
               }
              await aclogicGuest(acformvalue)
@@ -236,13 +243,13 @@ if (index<=110 || (index>200 && index<=210) || (index>300&&index<=310) || (index
            let acformvalue ={
             room_no:room_no,
             wing,
-            guest_name:"Chaitra",
+            guest_name:guestName,
             guest:formvalue,
             from_date:check_in,
             till_date:check_out,
             fees:1500,
             dues:0,
-            feepaid:1500,
+            feepaid:0,
             feestatus:true
           }
         await  aclogicGuestFemale(acformvalue)
@@ -269,7 +276,7 @@ else
 
 
            const callTheDb = async (room_no)=>{
-              return await axios.get("http://localhost:8080/getguestrooms/"+room_no,{ mode: 'no-cors' }).then((res)=>{
+              return await axios.get("http://localhost:8080/api/roomalloc/getguestrooms/"+room_no,{ mode: 'no-cors' }).then((res)=>{
                 console.log(res.data)     
               return res.data
                    
@@ -279,7 +286,7 @@ else
            }
 
           const callTheDbFemale = async (room_no)=>{
-            return await axios.get("http://localhost:8080/fgetguestrooms/"+room_no,{ mode: 'no-cors' }).then((res)=>{
+            return await axios.get("http://localhost:8080/api/roomalloc/fgetguestrooms/"+room_no,{ mode: 'no-cors' }).then((res)=>{
                    return res.data
                    
                }).catch((err)=>{
