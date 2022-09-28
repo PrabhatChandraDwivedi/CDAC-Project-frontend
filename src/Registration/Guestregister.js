@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Guestregister (){
-
+  const navigate=useNavigate();
   const [image, setimage] = useState("");
   const [state, setstate] = useState("");
   const [address, setaddress] = useState("");
@@ -123,7 +123,10 @@ const handleaadhar_no = (e) => {
    state.length===0||pincode.length===0){
     window.alert("Don't leave any field empty all fields are mandatory");
    }else{
+    const user = JSON.parse(localStorage.getItem('guest'))
+      let email_id = user.username
   let formvalue = {
+    email:email_id,
     aadhar_no,
    gender: gender,
    guest_name:guestName,
@@ -169,7 +172,7 @@ const handleaadhar_no = (e) => {
      setMobileerror(false);   
      setaadhar_noerror(false);
      setpincodeerror(false);
-      
+      navigate("/guesthome")
      window.location.reload();
   }
   else {

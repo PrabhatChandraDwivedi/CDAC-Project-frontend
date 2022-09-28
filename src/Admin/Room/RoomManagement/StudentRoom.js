@@ -7,9 +7,19 @@ import EditableRow from "./EditableRow";
 
 export default function StudentRoom() {
   const navigate = useNavigate();
-  const gotoadminstu = () => {
+ 
+  const gotoroom = () => {
+    navigate("/adminroom");
+  }
+  const gotostudent=()=>{
     navigate("/adminstudent");
-  };
+}
+const gotoguest=()=>{
+    navigate("/adminguest");
+}
+const gotodashboard = () => {
+    navigate("/dashboard");
+  }
 
   const [malebookeddata, setMaleBookedData] = useState([]);
   const [malestuavailablerooms, setMaleStuAvailRoom] = useState([]);
@@ -313,31 +323,31 @@ export default function StudentRoom() {
             <hr class="sidebar-divider my-0" />
             <ul class="navbar-nav text-light" id="accordionSidebar">
               <li class="nav-item">
-                <a class="nav-link pcdptr" onClick={""} href="#0">
+                <a class="nav-link pcdptr" onClick={gotodashboard} href="#0">
                   <i class="fas fa-tachometer-alt"></i>
                   <span>Dashboard</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pcdptr" onClick={""} href="#0">
+                <a class="nav-link active pcdptr" onClick={gotoroom} href="#0">
                   <i class="fas fa-user"></i>
                   <span>Room</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active pcdptr" href="#0">
+                <a class="nav-link  pcdptr" onClick={gotostudent} href="#0">
                   <i class="fas fa-table"></i>
                   <span>Student</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pcdptr" onClick={""} href="#0">
+                <a class="nav-link pcdptr" onClick={gotoguest} href="#0">
                   <i class="far fa-user-circle"></i>
                   <span>Guest</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pcdptr" onClick={""} href="#0">
+                <a class="nav-link pcdptr" onClick={gotodashboard} href="#0">
                   <i class="far fa-user-circle"></i>
                   <span>Back</span>
                 </a>
@@ -469,7 +479,7 @@ export default function StudentRoom() {
                                   <button
                                     type="submit"
                                     class="btn btn-warning"
-                                    onClick={gotoadminstu}
+                                    onClick={gotostudent}
                                   >
                                     <i class="fa-solid fa-user-pen"></i>
                                   </button>

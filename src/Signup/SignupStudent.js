@@ -13,7 +13,9 @@ export default function SignupStudent(){
     const [passError, setPassError] = useState(false);
     const [cofigPassError, setConfigPassError] = useState(false);
 
-
+    const gotologin = () => {
+        navigate("/login")
+      }
     
     const handleUser = (e) => {
         var value = e.target.value;
@@ -66,8 +68,8 @@ export default function SignupStudent(){
 
     }
 let formvalue={
-    username,
-    email,
+    username:email,
+    email:username,
     password,
     role:["user"]
 }
@@ -81,8 +83,9 @@ let formvalue={
 
         axios.post("http://localhost:8080/api/auth/signup",formvalue,{mode:'no-cors'})
         .then((response) => {
-            alert("SingIn Successful")
+            alert("Sign up Successful")
             resetData();
+            navigate("/login")
           })
           .catch((err) => {
             console.log(err);
@@ -136,7 +139,7 @@ let formvalue={
             </div>
             <p class="small text-center">By clicking the Sign Up button, you agree to our <br></br><a href="#0" onClick={gototerms} style={{color:"blue", textDecoration:"underline"}}>Terms &amp; Conditions</a></p>
         </form>
-        <div class="text-center">Already have an account? <a href="#0">Login here</a>.</div>
+        <div class="text-center">Already have an account? <a href="" onClick={gotologin}>Login here</a>.</div>
     </div>
     )
 }

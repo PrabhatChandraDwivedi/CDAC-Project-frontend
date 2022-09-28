@@ -2,116 +2,33 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles.css";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
+
 
 export default function StudentHome() {
-    const [tdata, setTdata] = useState([]);
-
-    // for edit details
-    const [shows, setShows] = useState(false);
-
-    const handleClose = () =>{
-        setmobile("");
-        setpmobile("");
-        setaddress("");
-        setcity("");
-        setstate("");
-        setpin("");
-        setShows(false);
-
-    } 
-    const handleShow = () => setShows(true);
-   
-    //Update 
-    const handleUpdate = () =>{
-        console.log(formValue);
-        setShows(false);
-    }
-
-
-
-    const [mobile, setmobile] = useState("");
-    const [pmobile, setpmobile] = useState("");
-    const [address, setaddress] = useState("");
-    const [city, setcity] = useState("");
-    const [state, setstate] = useState("");
-    const [pin, setpin] = useState("");
-    const [mobileerror, setmobileerror] = useState(false);
-    // const [emailerror, setemailerror] = useState(false);
-    const [pmobileerror, setpmobileerror] = useState(false);
-    const [pinerror, setpinerror] = useState(false);
-   
-
-    const handleMobile = (e)=>{
-        var value = e.target.value
-        if(isNaN(value)){
-            setmobileerror(true)
-        }else{
-            setmobileerror(false)
-        }
-        if(value.length!==10){
-            setmobileerror(true)
-        }else{
-            setmobileerror(false)
-        }
-        setmobile(value)
-    }
-    // const handleEmail = (e)=>{
-    //     var value = e.target.value
-    //     if(!/\S+@\S+\.\S+/.test(value)){
-    //         setemailerror(true)
-    //     }else{
-    //         setemailerror(false)
-    //     }
-    //     setemail(value);
-    // }
-    const handlePmobile = (e)=>{
-        var value = e.target.value
-        if(isNaN(value)){
-            setpmobileerror(true)
-        }else{
-            setpmobileerror(false)
-        }
-        if(value.length!==10){
-            setpmobileerror(true)
-        }else{
-            setpmobileerror(false)
-        }
-        setpmobile(value);
-    }
-    const handleAddress = (e)=>{
-        var value = e.target.value
-        setaddress(value);
-    }
-    const handleCity = (e)=>{
-        var value = e.target.value
-        setcity(value);
-    }
-    const handleState = (e)=>{
-        var value = e.target.value
-        setstate(value);
-    }
-   
-
-    const handlePincode=(e)=>{
-        var value = e.target.value
-        if(isNaN(value)){
-            setpinerror(true)
-        }else{
-            setpinerror(false)
-        }
-        if(value.length !== 6){
-            setpinerror(true);
-        }else{
-            setpinerror(false);
-        }
-        setpin(value);
-    }
-
-
-    let formValue = {mobile,pmobile,address,city,state,pin}
+    const [room_no, setRoom_no] = useState("")
+    const [bed_no, setBed_no] = useState("")
+    const [wing, setWing] = useState("")
+    const [from, setFrom] = useState("")
+    const [till, setTill] = useState("")
+    const [student_id, setStudent_id] = useState("")
+    const [student_full_name, setStudent_full_name] = useState("")
+    const [parrent_full_name, setParrent_full_name] = useState("")
+    const [dob, setDob] = useState("")
+    const [gender, setGender] = useState("")
+    const [student_mo_no, setStudent_mo_no] = useState("")
+    const [email_id, setEmail_id] = useState("")
+    const [parrent_mo_no, setParrent_mo_no] = useState("")
+    const [address, setAddress] = useState("")
+    const [city, setCity] = useState("")
+    const [state, setState] = useState("")
+    const [pincode, setPincode] = useState("")
+    const [collage_name, setCollage_name] = useState("")
+    const [admission_date, setAdmission_date] = useState("")
+    const [branch, setBranch] = useState("")
+    const [course_Applied, setCourse_Applied] = useState("")
+    const[fees,setFees] = useState("")
+    const[dues,setDues] = useState("")
+    const[feepaid,setFeepaid] = useState("")
 
 
 // vishal
@@ -121,6 +38,7 @@ export default function StudentHome() {
     }
 
     const logout = () => {
+        localStorage.removeItem("user");
         navigate("/");
     }
 
@@ -139,22 +57,88 @@ export default function StudentHome() {
     const gotoComplaintBox = () => {
         navigate("/complaintBox");
     }
-    function displaydata() {
+    
+    function capitalizeFirst(str) {
+        if (gender==="Male") {
+            console.log("hey");
+            forRoomNo()
+        }
+        if (gender==="Female") {
+             forFemaleRoom()
+        }
+        // return str.charAt(0).toUpperCase() + str.slice(1);
+        
+    }
+    const forRoomNo = async()=>{
+        await axios.get("http://localhost:8080/api/roomalloc/getmaleroom/"+student_full_name,{mode:'no-cors'}).then((response)=>{
+        console.log(response.data)
+                setRoom_no(response.data[0].room_no)
+                setBed_no(response.data[0].bed_no)
+                setWing(response.data[0].wing)
+                setFrom(response.data[0].from_date)
+                setTill(response.data[0].till_date)
+                setFeepaid(response.data[0].feepaid)
+                setDues(response.data[0].dues)
+                setFees(response.data[0].fees)
+        })
+    }
 
-        axios.get("http://localhost:8080/getall", { mode: 'no-cors' })
+    const forFemaleRoom = async()=>{
+        await axios.get("http://localhost:8080/api/roomalloc/getfemaleroom/"+student_full_name,{mode:'no-cors'}).then((response)=>{
+        console.log(response.data)
+                setRoom_no(response.data[0].room_no)
+                setBed_no(response.data[0].bed_no)
+                setWing(response.data[0].wing)
+                setFrom(response.data[0].from_date)
+                setTill(response.data[0].till_date)
+                setFeepaid(response.data[0].feepaid)
+                setDues(response.data[0].dues)
+                setFees(response.data[0].fees)
+        })
+    }
+
+
+
+    const url = "http://localhost:8080/api/dao/user/";
+    const user = JSON.parse(localStorage.getItem('user'))
+    let email = user.username;
+    console.log(email);
+    const displaystudentdata = () => {
+        axios.get(url + email, { mode: 'no-cors' })
             .then((response) => {
-                setTdata(response.data);
-            })
-            .catch((err) => {
-                console.log(err);
+                
+                console.log(response.data);
+                // setRoom_no(response.data.room_no)
+                // setBed_no(response.data.bed_no)
+                // setWing(response.data.wing)
+                // setFrom(response.data.from)
+                // setTill(response.data.till)
+                setStudent_id(response.data[0].srid)
+                setStudent_full_name(response.data[0].student_full_name)
+                setParrent_full_name(response.data[0].parent_full_name)
+                setDob(response.data[0].dob)
+                setGender(response.data[0].gender)
+                setStudent_mo_no(response.data[0].student_mo_no)
+                setEmail_id(response.data[0].email)
+                setParrent_mo_no(response.data[0].parent_mo_no)
+                setAddress(response.data[0].address)
+                setCity(response.data[0].city)
+                setState(response.data[0].state)
+                setPincode(response.data[0].pincode)
+                setCollage_name(response.data[0].college_name)
+                setAdmission_date(response.data[0].admission_date)
+                setBranch(response.data[0].branch)
+                setCourse_Applied(response.data[0].course_applied)
             })
     }
 
     useEffect(() => {
-        displaydata();
-    }, [])
-
+        displaystudentdata();
+    }, []);
     
+
+
+
 
 
     return (
@@ -180,37 +164,37 @@ export default function StudentHome() {
                 <div id="content">
                     <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar fixed-top">
                         <div class="container-fluid">
-                            <h2 style={{ textAlign: "center" }}>Welcome  Vishal !!</h2>
+                            <h2 style={{ textAlign: "center" }}>Welcome ! {student_full_name} </h2>
                         </div>
                     </nav>
 
                     <div className="Detailsbox">
-                        <div className="IdHeading">Student Id : 9891170 </div>
+                        <div className="IdHeading">Student Id : {student_id} </div>
                         {/*---------------- Personal Details--------------- */}
 
                         <div className="CardBlock1 ">
                             <p className="Heading">Room Details</p>
                             <div className="HomePage">
-                                <label className="form-label" > <strong>Room No:</strong>S101  </label>
+                                <label className="form-label" > <strong>Room No:</strong> {room_no}  </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label className="form-label"><strong> Bed No:</strong> A </label>
+                                <label className="form-label"><strong> Bed No:</strong> {bed_no} </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label className="form-label"><strong>Wing :</strong> Alpha </label>
+                                <label className="form-label"><strong>Wing :</strong> {wing} </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label className="form-label"><strong>From :</strong> 08-08-2022 </label>
+                                <label className="form-label"><strong>From :</strong> {from} </label>
                             </div>
                             <div className="HomePage" id="Line">
-                                <label className="form-label"><strong>Till :</strong>08-08-2023  </label>
+                                <label className="form-label"><strong>Till :</strong>{till}  </label>
                             </div>
                             <br/>
                             <div className="HomePage">
-                                <label className="form-label"><strong>Feestatus :</strong>Paid  </label>
+                                <label className="form-label"><strong>Feestatus :</strong> Paid </label>
                             </div>
                         </div>
 
@@ -218,159 +202,54 @@ export default function StudentHome() {
                         <div className="CardBlock1">
                             <p className="Heading" >Personal Details</p>
                             <div className="HomePage" >
-                                <label for="text" class="form-label"> <strong>Full Name:</strong> Vishal Kukde</label>
+                                <label for="text" class="form-label"> <strong>Full Name:</strong> {student_full_name}</label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label for="dob" class="form-label"><strong>Parent Full Name:</strong> Dnyaneshwar Kukde </label>
+                                <label for="dob" class="form-label"><strong>Parent Full Name:</strong> { parrent_full_name} </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label for="dob" class="form-label"><strong>Date of Birth:</strong> 19-09-1998 </label>
+                                <label for="dob" class="form-label"><strong>Date of Birth:</strong> {dob} </label>
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label for="Gender" class="form-label"><strong>Gender:</strong> Male </label>
+                                <label for="Gender" class="form-label"><strong>Gender:</strong> {gender} </label>
                             </div>
                         </div>
                         <br />
                         {/*---------------- Contact Details--------------- */}
                         <div className="CardBlock2">
                     
-                            <p className="Heading" >Contact Details
-                            {/* chaitra................................... */}
-                            <Button variant="primary" style={{ backgroundColor:"white", marginLeft: "750px" }} onClick={handleShow}><i class="fa fa-pencil"></i></Button>
-                            </p>
+                            <p className="Heading" >Contact Details</p>
 
-                            <Modal show={shows} onHide={handleClose}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Edit Details</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <Form>
-                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                            <Form.Label>Mobile NO.</Form.Label>
-                                            <Form.Control
-                                                type="number"
-                                                placeholder="Mobile No."
-                                                autoFocus
-                                                onChange={handleMobile}
-                                                value={mobile}
-                                                required={true}
-                                            /></Form.Group>
-                                             {mobileerror?<p style={{color:"red", fontSize:"small"}}>Only 10 numbers are allowed</p>:null}
-
-                                        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
-                                            <Form.Label>E-mail</Form.Label>
-                                            <Form.Control
-                                                type="email"
-                                                placeholder="name@example.com"
-                                                autoFocus
-                                                onChange={handleEmail}
-                                                value={email}
-                                                required={true}
-                                            /></Form.Group>
-                                            {emailerror?<p style={{color:"red", fontSize:"small"}}>Invalid format</p>:null} */}
-
-                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
-                                            <Form.Label>Parent Mobile No.</Form.Label>
-                                            <Form.Control
-                                                type="number"
-                                                placeholder="Parent Mobile No."
-                                                autoFocus
-                                                onChange={handlePmobile}
-                                                value={pmobile}
-                                                required={true}
-                                            /></Form.Group>
-                                            {pmobileerror?<p style={{color:"red", fontSize:"small"}}>Only 10 numbers are allowed</p>:null}
-
-                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
-                                            <Form.Label>Address</Form.Label>
-                                            <Form.Control
-                                               as="textarea"
-                                                placeholder="Address"
-                                                autoFocus
-                                                onChange={handleAddress}
-                                                value={address}
-                                                required={true}
-                                            />
-                                        </Form.Group>
-                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
-                                            <Form.Label>City</Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                placeholder="City"
-                                                autoFocus
-                                                onChange={handleCity}
-                                                value={city}
-                                                required={true}
-                                            />
-                                        </Form.Group>
-                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
-                                            <Form.Label>State</Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                placeholder="State"
-                                                autoFocus
-                                                onChange={handleState}
-                                                value={state}
-                                                required={true}
-                                            />
-                                        </Form.Group>
-                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
-                                            <Form.Label>Pin Code</Form.Label>
-                                            <Form.Control
-                                                type="number"
-                                                placeholder="Pin Code"
-                                                autoFocus
-                                                onChange={handlePincode}
-                                                value={pin}
-                                                required={true}
-                                            />
-                                        </Form.Group>
-                                        {pinerror?<p style={{color:"red", fontSize:"small"}}>Enter 6 number pin</p>:null}
-                                        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                            <Form.Label>Example textarea</Form.Label>
-                                            <Form.Control as="textarea" rows={3} />
-                                        </Form.Group> */}
-                                    </Form>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button type="submit" variant="secondary" onClick={handleClose}>
-                                        Close
-                                    </Button>
-                                    <Button type="submit" variant="primary" onClick={handleUpdate} >
-                                        Save Changes
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
                             {/* .................................... */}
 
                             <div className="HomePage" >
-                                <label for="mobno" class="form-label "><strong>Mobile No:</strong> 1234567890 </label>
+                                <label for="mobno" class="form-label "><strong>Mobile No:</strong> {student_mo_no} </label>
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label for="email" class="form-label"><strong>E-Mail:</strong> vishal@gmail.com </label>
+                                <label for="email" class="form-label"><strong>E-Mail:</strong>{email_id}</label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label for="pmobno" class="form-label "> <strong>Parent Mobile No:</strong> 9876543210 </label>
+                                <label for="pmobno" class="form-label "> <strong>Parent Mobile No:</strong> {parrent_mo_no} </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label "><strong> Address:</strong> 86,Hiwari   </label>
+                                <label class="form-label "><strong> Address:</strong>{address}   </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label "><strong> City:</strong> Pune</label>
+                                <label class="form-label "><strong> City:</strong>{(city)}</label>
                             </div>
                             <div className="HomePage" id="Line">
-                                <label class="form-label"> <strong>State:</strong> "Maharashtra" </label>
+                                <label class="form-label"> <strong>State:</strong> { ( state)} </label>
                             </div>
                             <div className="HomePage" id="Line">
 
-                                <label class="form-label" style={{ position: "relative", left: 190 }}><strong> Pin Code</strong> : 123456</label>
+                                <label class="form-label" style={{ position: "relative", left: 190 }}><strong> Pin Code</strong> {pincode}</label>
 
                             </div>
                         </div>
@@ -378,15 +257,15 @@ export default function StudentHome() {
                         <div className="CardBlock2">
                             <p className="Heading" >Academic Details</p>
                             <div className="HomePage" >
-                                <label class="form-label "><strong>College Name :</strong> Priyadarshini College of Engg.</label>
+                                <label class="form-label "><strong>College Name :</strong> {collage_name}</label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label"><strong>Admission Date:</strong> 18-08-2016 </label>
+                                <label class="form-label"><strong>Admission Date:</strong> {admission_date} </label>
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label class="form-label"><strong>Branch:</strong> Mechanical Engg. </label>
+                                <label class="form-label"><strong>Branch:</strong> {branch} </label>
                             </div>
                             <br />
                             <div className="HomePage">
@@ -394,22 +273,22 @@ export default function StudentHome() {
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label class="form-label "><strong>Course Type :</strong> B.E  </label>
+                                <label class="form-label "><strong>Course Type :</strong> {course_Applied}  </label>
                             </div>
                         </div>
                         {/*----------------Fees Details--------------- */}
                         <div className="CardBlock2">
                             <p className="Heading" >Fees Details</p>
                             <div className="HomePage" >
-                                <label class="form-label "><strong>Total Fee:</strong> 80,000</label>
+                                <label class="form-label "><strong>Total Fee:</strong> {fees}</label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label"><strong>Paid fee:</strong> 60,000 </label>
+                                <label class="form-label"><strong>Paid fee:</strong> {feepaid} </label>
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label class="form-label"><strong>Remaining fee:</strong> 20,000 </label>
+                                <label class="form-label"><strong>Remaining fee:</strong> {dues} </label>
                             </div>
                         </div>
                         <a class="Complaintbox" id="Box" onMouseOver={show} onMouseOut={hide} onClick={gotoComplaintBox} href=" "><i class="fa-solid fa-box-open"></i></a>

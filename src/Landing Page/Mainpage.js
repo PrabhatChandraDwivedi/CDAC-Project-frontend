@@ -108,7 +108,7 @@ export default function MainPage() {
                 <h1 id="Reviews" style={{color:"white",marginBottom:"5px",fontSize:"48px",fontWeight:"bold", textAlign:"center", marginTop:"10px"}}>
                     Reviews </h1>
                 <div class="row">
-                    <div class="col col-12 col-md-6" style={{marginBottom:"15px"}}>
+                    <div class="col col-12 col-md-6 myreview" style={{marginBottom:"15px"}}>
                         <div class="yelp_review">
                             <div class="yelp_basic">
                                 <div class="yelp_first">
@@ -129,7 +129,7 @@ export default function MainPage() {
                             </div>
                         </div>
                     </div>
-                    <div class="col col-12 col-md-6" style={{marginBottom:"15px"}}>
+                    <div class="col col-12 col-md-6 myreview" style={{marginBottom:"15px"}}>
                         <div class="yelp_review">
                             <div class="yelp_basic">
                                 <div class="yelp_first">
@@ -151,7 +151,7 @@ export default function MainPage() {
                                 </div>
                         </div>
                     </div>
-                    <div class="col col-12 col-md-6" style={{marginBottom:"15px"}}>
+                    <div class="col col-12 col-md-6 myreview" style={{marginBottom:"15px"}}>
                         <div class="yelp_review">
                                 <div class="yelp_basic">
                                         <div class="yelp_first">
@@ -173,7 +173,7 @@ export default function MainPage() {
                             </div>
                         </div>
                      </div>
-                <div class="col col-12 col-md-6" style={{marginBottom:"15px"}}>
+                <div class="col col-12 col-md-6 myreview" style={{marginBottom:"15px"}}>
                         <div class="yelp_review">
                                 <div class="yelp_basic">                                                  
                                     <div class="yelp_first">

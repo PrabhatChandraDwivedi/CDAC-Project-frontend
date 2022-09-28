@@ -43,7 +43,7 @@ export default function App(){
             < Route path='/signupguest' exact={true} element={<SignupGuest />} /> 
             < Route path='/signupstudent' exact={true} element={<SignupStudent />} /> 
             < Route path='/studenthome' exact={true} element={<StudentHome/>} />
-            < Route path='/complaint' exact={true} element={<ComplaintBox/>} />
+            < Route path='/complaintBox' exact={true} element={<ComplaintBox/>} />
             < Route path='/guesthome' exact={true} element={<GuestHome/>} />
             < Route path='/review' exact={true} element={<Review/>} />
             < Route path='/sturoommng' exact={true} element={<StudentRoom/>} />

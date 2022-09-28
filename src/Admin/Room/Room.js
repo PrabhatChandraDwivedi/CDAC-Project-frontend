@@ -7,11 +7,23 @@ export default function Room() {
       navigate("/dashboard");
     }
     const gotostudent=()=>{
-        navigate("/student");
+        navigate("/adminstudent");
     }
     const gotoguest=()=>{
-        navigate("/guest");
+        navigate("/adminguest");
     }
+
+    const gotostudentroom=()=>{
+        navigate("/sturoommng")
+    }
+
+    const gotoguestroom=()=>{
+        navigate("/guestroommng")
+    }
+    const logout = ()=>{
+        localStorage.removeItem("admin")
+        navigate("/")
+      }
 
     return (
         <div>
@@ -71,8 +83,8 @@ export default function Room() {
                                     <div class="d-none d-sm-block topbar-divider"></div>
                                     <li class="nav-item dropdown no-arrow">
                                         <div class="nav-item dropdown no-arrow">
-                                            <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#0"><span
-                                                class="d-none d-lg-inline me-2 text-gray-600 small">Administrator</span><i
+                                            <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="" onClick={logout}><span
+                                                class="d-none d-lg-inline me-2 text-gray-600 small">Logout</span><i
                                                     class="fa-solid fa-user-tie"></i></a>
                                             <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
                                                 <a class="dropdown-item" href="#0"><i
@@ -96,7 +108,7 @@ export default function Room() {
                                 <div class="vcontainer">
                                     <h4><b>Manage Student Room </b></h4>
                                     <div class="pccontainer">
-                                        <button class="vbutton"><span><i class="fa-solid fa-arrow-right-to-bracket"></i></span></button></div>
+                                        <button onClick={gotostudentroom} class="vbutton"><span><i class="fa-solid fa-arrow-right-to-bracket"></i></span></button></div>
                                 </div>
                             </div>
                             <div class="vcard">
@@ -104,16 +116,8 @@ export default function Room() {
                                 <div class="vcontainer">
                                     <h4><b>Manage Guest Room</b></h4>
                                     <div class="pccontainer">
-                                        <button class="vbutton"><span><i class="fa-solid fa-arrow-right-to-bracket"></i></span></button>
+                                        <button onClick={gotoguestroom} class="vbutton"><span><i class="fa-solid fa-arrow-right-to-bracket"></i></span></button>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="vcard">
-
-                                <div class="vcontainer">
-                                    <h4><b>Vacant Rooms</b></h4>
-                                    <div class="pccontainer1">
-                                        <button class="vbutton"><span><i class="fa-solid fa-arrow-right-to-bracket"></i></span></button></div>
                                 </div>
                             </div>
                         </div>

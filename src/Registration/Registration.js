@@ -446,7 +446,7 @@ return await mydate
             branch:branch,
             dob,
             course_applied:course_Applied, 
-            email_id:email_id,
+            email:email_id,
             parent_mo_no:parrent_mo_no,
             college_name:collage_name,
             admission_date:admission_date,
@@ -498,7 +498,7 @@ return await mydate
             // console.log(formvalue);
             console.log("Form Submission Cancelled")
         }
-      navigate("/student");}
+      navigate("/studenthome");}
     };
 
 

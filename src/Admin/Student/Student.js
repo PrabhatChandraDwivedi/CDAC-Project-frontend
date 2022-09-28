@@ -1,14 +1,16 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import StudentDisplayEditable from "./StudentDisplayEditable";
+import StudentDisplayReadOnly from "./StudentDisplayReadOnly";
 export default function Student() {
   const[maledata,setMaleData]=useState([]);
   const navigate=useNavigate();
     const gotoguest=()=>{
-        navigate("/guest");
+        navigate("/adminguest");
     }
     const gotoroom=()=>{
-      navigate("/room");
+      navigate("/adminroom");
   }
   const gotodashboard=()=>{
     navigate("/dashboard");
@@ -16,29 +18,259 @@ export default function Student() {
 const gotoregistration=()=>{
   navigate("/register");
 }
-  // function displaydata(){
-  //     //@GetMapping("/getall")
-  //    axios.get("http://localhost:8080/getall",{mode:'no-cors'})
-  //    .then((response) => {
-  //       // console.log(response.data);
-  //       // response.json().then((response) => {
-  //         setTdata(response.data);
-  //         // console.log("res", response);
-          
-  //     // }).catch((err)=>{
-  //     //   console.log(err);
-  //     // })
-      
-  //     }).catch((err) => {
-  //       console.log(err);
-  //     })
-  //   }
 
-  //   //react lifecycle components... render() compondidUpdate, com
-  //   ///backend to frontend
-  //   useEffect(() => {
-  //     displaydata();
-  //   }, [])
+const [femalebookeddata, setFemaleBookedData] = useState([]);
+const [malebookeddata, setMaleBookedData] = useState([]);
+const mergedbooked = [...malebookeddata, ...femalebookeddata];
+
+
+
+
+
+
+
+
+const [editFormData, setEditFormData] = useState({
+  srid: "",
+  student_name: "",
+  student_mo_no: "",
+  email: "",
+  gender: "",
+
+  course_applied: "",
+  branch: "",
+  parent_mo_no: "",
+});
+
+const [editContactId, setEditContactId] = useState(null);
+
+const handleEditFormChange = (event) => {
+  event.preventDefault();
+
+  const fieldName = event.target.getAttribute("name");
+  const fieldValue = event.target.value;
+
+  const newFormData = { ...editFormData };
+  newFormData[fieldName] = fieldValue;
+
+  setEditFormData(newFormData);
+};
+
+const handleEditFormSubmit = async (event) => {
+  event.preventDefault();
+
+  const editedContact = {
+    srid: editContactId,
+    student_name: editFormData.student_name,
+    student_mo_no: editFormData.student_mo_no,
+    email: editFormData.email,
+    gender: editFormData.gender,
+    course_applied: editFormData.course_applied,
+    branch: editFormData.branch,
+    parent_mo_no:editFormData.parent_mo_no
+  };
+
+  const newContacts = [...mergedbooked];
+
+  const index = mergedbooked.findIndex(
+    (contact) => contact.student.srid === editContactId
+  );
+
+  newContacts[index].srid = editedContact.srid;
+  newContacts[index].student_name = editedContact.student_name;
+  newContacts[index].student.branch = editedContact.branch;
+  newContacts[index].student.student_mo_no = editedContact.student_mo_no;
+  newContacts[index].student.email = editedContact.email;
+  newContacts[index].student.gender = editedContact.gender;
+  newContacts[index].student.course_applied = editedContact.course_applied;
+  newContacts[index].student.parent_mo_no = editedContact.parent_mo_no;
+  newContacts[index].student.srid = editedContact.srid;
+  newContacts[index].student.student_full_name = editedContact.student_name;
+
+  // console.log(newContacts)
+  // let stu_id = newContacts[index].srid
+  // console.log(stu_id);
+
+  var result = newContacts.find(
+    (item) => item.student.srid === editContactId
+  );
+  let bed_no = result.bed_no;
+  let room_no = result.room_no;
+  let wing = result.wing;
+  let gender = result.student.gender;
+  if (gender === "Male") {
+    await axios
+      .post(
+        "http://localhost:8080/api/roomalloc/update/" +
+          room_no +
+          "/" +
+          bed_no +
+          "/" +
+          wing,
+        result,
+        { mode: "no-cors" }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    displayBookedDataMale();
+    displayFemaleBookedData();
+  }
+  if (gender === "Female") {
+    await axios
+      .post(
+        "http://localhost:8080/api/roomalloc/fupdate/" +
+          room_no +
+          "/" +
+          bed_no +
+          "/" +
+          wing,
+        result,
+        { mode: "no-cors" }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    displayBookedDataMale();
+    displayFemaleBookedData();
+  }
+
+  console.log(result);
+
+  setEditContactId(null);
+};
+
+const handleEditClick = (event, contact) => {
+  event.preventDefault();
+  setEditContactId(contact.student.srid);
+
+  const formValues = {
+    srid: contact.student.srid,
+    student_name: contact.student_name,
+    student_mo_no: contact.student.student_mo_no,
+    email: contact.student.email,
+    gender: contact.student.gender,
+    course_applied: contact.student.course_applied,
+    branch: contact.student.branch,
+    parent_mo_no: contact.student.parent_mo_no,
+  };
+
+  setEditFormData(formValues);
+};
+
+const handleCancelClick = () => {
+  setEditContactId(null);
+};
+
+const handleDeleteClick = async (contactId) => {
+  const newContacts = [...mergedbooked];
+
+  let result = newContacts.find(
+    (contact) => contact.student.srid === contactId
+  );
+
+  console.log(result);
+  let bed_no = result.bed_no;
+  let room_no = result.room_no;
+  let wing = result.wing;
+  let gender = result.student.gender;
+
+  if (gender === "Male") {
+    await axios
+      .get(
+        "http://localhost:8080/api/roomalloc/deleteone/" +
+          room_no +
+          "/" +
+          bed_no +
+          "/" +
+          wing,
+        result,
+        { mode: "no-cors" }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    displayBookedDataMale();
+    displayFemaleBookedData();
+  }
+  if (gender === "Female") {
+    await axios
+      .get(
+        "http://localhost:8080/api/roomalloc/fdeleteone/" +
+          room_no +
+          "/" +
+          bed_no +
+          "/" +
+          wing,
+        result,
+        { mode: "no-cors" }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    displayBookedDataMale();
+    displayFemaleBookedData();
+  }
+};
+
+
+function displayBookedDataMale() {
+  axios
+    .get("http://localhost:8080/api/roomalloc/getallmalestu", {
+      mode: "no-cors",
+    })
+    .then((response) => {
+      setMaleBookedData(response.data);
+      console.log(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+const displayFemaleBookedData = () => {
+  axios
+    .get("http://localhost:8080/api/roomalloc/getallfemalestualloc", {
+      mode: "no-cors",
+    })
+    .then((response) => {
+      setFemaleBookedData(response.data);
+      console.log(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const logout = ()=>{
+  localStorage.removeItem("admin")
+  navigate("/")
+}
 
   function displaydataMale(){
     //@GetMapping("/getall")
@@ -57,7 +289,8 @@ const gotoregistration=()=>{
   
   
    useEffect(() => {
-    displaydataMale();
+    displayBookedDataMale()
+    displayFemaleBookedData()
   }, [])
   
 
@@ -165,10 +398,10 @@ const gotoregistration=()=>{
                         class="dropdown-toggle nav-link"
                         aria-expanded="false"
                         data-bs-toggle="dropdown"
-                        href="#0"
+                        href="" onClick={logout}
                       >
                         <span class="d-none d-lg-inline me-2 text-gray-600 small">
-                          Administrator
+                          Logout
                         </span>
                         <i class="fa-solid fa-user-tie"></i>
                       </a>
@@ -203,29 +436,7 @@ const gotoregistration=()=>{
                   Add Student
                 </button>
               </div>
-              <div id="forsearch">
-                <h3>Update Check-in and Check out time</h3>
-
-                <input
-                  id="forinput"
-                  type="search"
-                  class="form-control form-control-sm"
-                  aria-controls="dataTable"
-                  placeholder="Enter name"
-                />
-                <input
-                  id="forinput1"
-                  type="search"
-                  class="form-control form-control-sm"
-                  aria-controls="dataTable"
-                  placeholder="Enter Unique Id"
-                />
-                <input id="forinput2" type="time" />
-                <input id="forinput3" type="time" />
-                <button class="pcdbtn" type="submit" >
-                  Submit
-                </button>
-              </div>
+              
               <div class="card shadow">
                 <div class="card-header py-3">
                   <p class="text-primary m-0 fw-bold">Student Info</p>
@@ -274,6 +485,7 @@ const gotoregistration=()=>{
                     role="grid"
                     aria-describedby="dataTable_info"
                   >
+                    <form onSubmit={handleEditFormSubmit}>
                     <table class="table my-0" id="dataTable">
                       <thead>
                         <tr>
@@ -283,38 +495,36 @@ const gotoregistration=()=>{
                           <th>Email</th>
                           <th>Gender</th>
                           <th>Course</th>
-                          <th>Admission Date</th>
+                        
                           <th>Branch</th>
                           <th>Parent_Num</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                      {
-                        maledata.map(function (item){
-                         return   <tr>
-                                {/* <th scope="row">1</th> */}
-                                <td>{item.room_no}</td>
-                                <td>{item.bed_no}</td>
-                                <td>{item.wing}</td>
-                                <td>{item.room_no}</td>
-                                <td>{item.course}</td>
-                                <td>{item.gender}</td>
-                                <td>{item.name}</td>
-                                <td>{item.student_id}</td>
-                                <td>
-                            <button type="submit" class="btn btn-warning">
-                              <i class="fa-solid fa-user-pen"></i>
-                            </button>
-                          </td>
-                            </tr>
-                          } )
-                    }
+                      {mergedbooked.map((contact) => (
+                              <Fragment>
+                                {editContactId === contact.student.srid ? (
+                                  <StudentDisplayEditable
+                                    editFormData={editFormData}
+                                    handleEditFormChange={handleEditFormChange}
+                                    handleCancelClick={handleCancelClick}
+                                  />
+                                ) : (
+                                  <StudentDisplayReadOnly
+                                    contact={contact}
+                                    handleEditClick={handleEditClick}
+                                    handleDeleteClick={handleDeleteClick}
+                                  />
+                                )}
+                              </Fragment>
+                            ))}
 
                        
                       </tbody>
                      
                     </table>
+                    </form>
                   </div>
                   <div class="row">
                     <div class="col-md-6 align-self-center">

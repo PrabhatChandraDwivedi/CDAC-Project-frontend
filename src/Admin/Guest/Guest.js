@@ -1,16 +1,257 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
+import DisplayGuestReadOnly from "./DisplayGuestReadOnly";
+import EditablDisplayGuest from "./Editable Display Guest";
 export default function Guest() {
   const navigate=useNavigate();
     const gotostudent=()=>{
-        navigate("/student");
-    }
+        navigate("/adminstudent");
+    } 
     const gotoroom = () => {
-      navigate("/room");
+      navigate("/adminroom");
     }
     const gotodashboard = () => {
       navigate("/dashboard");
     }
+    const logout = ()=>{
+      localStorage.removeItem("admin")
+      navigate("/")
+    }
+    const gotoguestregister = ()=>{
+      navigate("/guestregister")
+    }
+
+
+
+    const [guestmalebookeddata, setGuestMaleBookedData] = useState([]);
+  const [guestfemalebookeddata, setGuestFemaleBookedData] = useState([]);
+
+  
+  const [editFormData, setEditFormData] = useState({
+    grid: "",
+    guest_name: "",
+    aadhar_no: "",
+    gender: "",
+    
+
+    mobile_no: "",
+    room_type: "",
+    id_proof: "",
+  });
+
+  const [editContactId, setEditContactId] = useState(null);
+
+  const handleEditFormChange = (event) => {
+    event.preventDefault();
+
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
+
+    const newFormData = { ...editFormData };
+    newFormData[fieldName] = fieldValue;
+
+    setEditFormData(newFormData);
+  };
+
+  const handleEditFormSubmit = async (event) => {
+    event.preventDefault();
+
+    const editedContact = {
+      grid: editContactId,
+      guest_name: editFormData.guest_name,
+      aadhar_no: editFormData.aadhar_no,
+      gender: editFormData.gender,
+      mobile_no: editFormData.mobile_no,
+      room_type: editFormData.room_type,
+      id_proof: editFormData.id_proof,
+    };
+
+    const newContacts = [...mergedbooked];
+
+    const index = mergedbooked.findIndex(
+      (contact) => contact.guest.grid === editContactId
+    );
+
+    newContacts[index].grid = editedContact.grid;
+    newContacts[index].guest_name = editedContact.guest_name;
+    newContacts[index].guest.aadhar_no = editedContact.aadhar_no;
+    newContacts[index].guest.gender = editedContact.gender;
+    newContacts[index].guest.mobile_no = editedContact.mobile_no;
+    newContacts[index].guest.room_type = editedContact.room_type;
+    newContacts[index].guest.id_proof = editedContact.id_proof;
+    newContacts[index].guest.grid = editedContact.grid;
+    newContacts[index].guest.guest_name = editedContact.guest_name;
+
+    // console.log(newContacts)
+    // let stu_id = newContacts[index].srid
+    // console.log(stu_id);
+
+    var result = newContacts.find(
+      (item) => item.guest.grid === editContactId
+    );
+   
+    let room_no = result.room_no;
+   
+    let gender = result.guest.gender;
+    if (gender === "Male") {
+      await axios
+        .post(
+          "http://localhost:8080/api/roomalloc/updateguest/" +
+            room_no
+            ,
+          result,
+          { mode: "no-cors" }
+        )
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      displayGuestBookedDataMale();
+      displayGuestFemaleBookedData();
+    }
+    if (gender === "Female") {
+      await axios
+        .post(
+          "http://localhost:8080/api/roomalloc/fupdateguest/" +
+            room_no,
+          result,
+          { mode: "no-cors" }
+        )
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      displayGuestBookedDataMale();
+      displayGuestFemaleBookedData();
+    }
+
+    console.log(result);
+
+    setEditContactId(null);
+  };
+
+  const handleEditClick = (event, contact) => {
+    event.preventDefault();
+    setEditContactId(contact.guest.grid);
+
+    const formValues = {
+      grid: contact.guest.grid,
+      
+      guest_name: contact.guest_name,
+      aadhar_no: contact.guest.aadhar_no,
+      gender: contact.guest.gender,
+      mobile_no: contact.guest.mobile_no,
+      room_type: contact.guest.room_type,
+      id_proof: contact.guest.id_proof,
+    };
+
+    setEditFormData(formValues);
+  };
+
+  const handleCancelClick = () => {
+    setEditContactId(null);
+  };
+
+  const handleDeleteClick = async (contactId) => {
+    const newContacts = [...mergedbooked];
+
+    let result = newContacts.find(
+      (contact) => contact.guest.grid === contactId
+    );
+
+    console.log(result);
+    
+    let room_no = result.room_no;
+    
+    let gender = result.guest.gender;
+
+    if (gender === "Male") {
+      await axios
+        .get(
+          "http://localhost:8080/api/roomalloc/deleteoneguest/" +
+            room_no ,
+          result,
+          { mode: "no-cors" }
+        )
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      displayGuestBookedDataMale();
+      displayGuestFemaleBookedData();
+    }
+    if (gender === "Female") {
+      await axios
+        .get(
+          "http://localhost:8080/api/roomalloc/fdeleteoneguest/" +
+            room_no,
+          result,
+          { mode: "no-cors" }
+        )
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      displayGuestBookedDataMale();
+      displayGuestFemaleBookedData();
+    }
+  };
+
+  const gotoadminsturoomalloc = () => {
+    navigate("/adminsturoomupdate");
+  };
+
+  
+  const mergedbooked = [...guestmalebookeddata, ...guestfemalebookeddata];
+
+  function displayGuestBookedDataMale() {
+    axios
+      .get("http://localhost:8080/api/roomalloc/getallmaleguestalloc", {
+        mode: "no-cors",
+      })
+      .then((response) => {
+        setGuestMaleBookedData(response.data);
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const displayGuestFemaleBookedData = () => {
+    axios
+      .get("http://localhost:8080/api/roomalloc/getallfemaleguestroomalloc", {
+        mode: "no-cors",
+      })
+      .then((response) => {
+        setGuestFemaleBookedData(response.data);
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    displayGuestBookedDataMale();
+    displayGuestFemaleBookedData();
+ 
+  }, []);
+
+
+
+
+
+
   return (
     
     <div>
@@ -119,7 +360,7 @@ export default function Guest() {
                         href="#0"
                       >
                         <span class="d-none d-lg-inline me-2 text-gray-600 small">
-                          Administrator
+                          Logout
                         </span>
                         <i class="fa-solid fa-user-tie"></i>
                       </a>
@@ -137,7 +378,7 @@ export default function Guest() {
                           &nbsp;Activity log
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#0">
+                        <a class="dropdown-item" href="" onClick={logout}>
                           <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
                           &nbsp;Logout
                         </a>
@@ -150,31 +391,8 @@ export default function Guest() {
             <div class="container-fluid">
               <div>
                 <h3>Add new Guest</h3>
-                <button class="addstu1" type="submit">
+                <button class="addstu1" type="submit" onClick={gotoguestregister}>
                   Add Guest
-                </button>
-              </div>
-              <div id="forsearch">
-                <h3>Update Check-in and Check out time</h3>
-
-                <input
-                  id="forinput"
-                  type="search"
-                  class="form-control form-control-sm"
-                  aria-controls="dataTable"
-                  placeholder="Enter name"
-                />
-                <input
-                  id="forinput1"
-                  type="search"
-                  class="form-control form-control-sm"
-                  aria-controls="dataTable"
-                  placeholder="Enter Unique Id"
-                />
-                <input id="forinput2" type="time" />
-                <input id="forinput3" type="time" />
-                <button class="pcdbtn" type="submit">
-                  Submit
                 </button>
               </div>
               <div class="card shadow">
@@ -225,82 +443,43 @@ export default function Guest() {
                     role="grid"
                     aria-describedby="dataTable_info"
                   >
+                    <form onSubmit={handleEditFormSubmit}>
                     <table class="table my-0" id="dataTable">
                       <thead>
                         <tr>
-                          <th>S.no</th>
+                          <th>Guest Id</th>
                           <th>Name</th>
-                          <th>Unique no.</th>
-                          <th>Check-in</th>
-                          <th>Check-out</th>
-                          <th>Id</th>
-                          <th>Room no.</th>
-                          <th>Edit</th>
-                          <th>Delete</th>
+                          <th>Aadhar no.</th>
+                          <th>Gender</th>
+                          <th>Mobile_no</th>
+                          <th>Room Type</th>
+                          <th>Id Proof</th>
+                          <th>Action</th>
+                         
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>
-                            <i class="fa-solid fa-user"></i>&nbsp;&nbsp;Guest 1
-                          </td>
-                          <td>657856376</td>
-                          <td>27th Jul 2022,09:00</td>
-                          <td>2nd Aug 2022,21:00</td>
-                          <td>
-                            <a href="#0">Download Id</a>
-                          </td>
-                          <td>1 C</td>
-                          <td>
-                            <button type="submit" class="btn btn-warning">
-                              <i class="fa-solid fa-user-pen"></i>
-                            </button>
-                          </td>
-                          <td>
-                            <button type="submit" class="btn btn-danger">
-                              <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>
-                            <i class="fa-solid fa-user"></i>&nbsp;&nbsp;Guest 2
-                          </td>
-                          <td>464564554</td>
-                          <td>1st Aug 2022,10:00</td>
-                          <td>5th Aug 2022,22:00</td>
-                          <td>
-                            <a href="#0">Download Id</a>
-                          </td>
-                          <td>13 D</td>
-                          <td>
-                            <button type="submit" class="btn btn-warning">
-                              <i class="fa-solid fa-user-pen"></i>
-                            </button>
-                          </td>
-                          <td>
-                            <button type="submit" class="btn btn-danger">
-                              <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                          </td>
-                        </tr>
+                      {mergedbooked.map((contact) => (
+                              <Fragment>
+                                {editContactId === contact.guest.grid ? (
+                                  <EditablDisplayGuest
+                                    editFormData={editFormData}
+                                    handleEditFormChange={handleEditFormChange}
+                                    handleCancelClick={handleCancelClick}
+                                  />
+                                ) : (
+                                  <DisplayGuestReadOnly
+                                    contact={contact}
+                                    handleEditClick={handleEditClick}
+                                    handleDeleteClick={handleDeleteClick}
+                                  />
+                                )}
+                              </Fragment>
+                            ))}
                       </tbody>
-                      <tfoot>
-                        <tr>
-                          <th>S.no</th>
-                          <th>Name</th>
-                          <th>Unique no.</th>
-                          <th>Check-in</th>
-                          <th>Check-out</th>
-                          <th>Id</th>
-                          <th>Room no.</th>
-                          <th>Edit</th>
-                          <th>Delete</th>
-                        </tr>
-                      </tfoot>
+                      
                     </table>
+                    </form>
                   </div>
                   <div class="row">
                     <div class="col-md-6 align-self-center">

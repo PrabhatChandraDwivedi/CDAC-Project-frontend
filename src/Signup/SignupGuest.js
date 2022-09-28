@@ -12,7 +12,10 @@ export default function SignupGuest(){
     const [emailError, setEmailError] = useState(false);
     const [passError, setPassError] = useState(false);
     const [cofigPassError, setConfigPassError] = useState(false);
-
+    
+    const gotologin = () => {
+        navigate("/guestlogin")
+      }
     
     const handleUser = (e) => {
         var value = e.target.value;
@@ -67,10 +70,10 @@ export default function SignupGuest(){
 
     }
 let formvalue={
-    username,
-    email,
+    username:email,
+    email:username,
     password,
-    role:["user"]
+    role:["guest"]
 }
 
     //submit the form
@@ -79,9 +82,10 @@ let formvalue={
 
         event.preventDefault()
 
-        axios.post("http://localhost:8080/api/auth/signupguest",formvalue,{mode:'no-cors'})
+        axios.post("http://localhost:8080/api/auth/signup",formvalue,{mode:'no-cors'})
         .then((response) => {
-            alert("SingIn Successful")
+            alert("Sign up Successful")
+            navigate("/guestlogin")
           })
           .catch((err) => {
             console.log(err);
@@ -139,7 +143,7 @@ let formvalue={
             
             <p class="small text-center">By clicking the Sign Up button, you agree to our <br></br><a href="#0"  onClick={gototerms} style={{color:"blue", textDecoration:"underline"}}>Terms &amp; Conditions</a></p>
         </form>
-        <div class="text-center">Already have an account? <a href="#0">Login here</a>.</div>
+        <div class="text-center">Already have an account? <a href="" onClick={gotologin}>Login here</a>.</div>
     </div>
 
     )

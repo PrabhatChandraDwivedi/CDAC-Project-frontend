@@ -3,18 +3,21 @@ import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
   const navigate = useNavigate();
   const gotoroom = () => {
-    navigate("/room");
+    navigate("/adminroom");
   }
   const gotostudent=()=>{
-    navigate("/student");
+    navigate("/adminstudent");
 }
 const gotoguest=()=>{
-    navigate("/guest");
+    navigate("/adminguest");
 }
 const gotodashboard = () => {
     navigate("/dashboard");
   }
-
+  const logout = ()=>{
+    localStorage.removeItem("admin")
+    navigate("/")
+  }
   return (
     <div>
       <div id="wrapper">
@@ -126,10 +129,10 @@ const gotodashboard = () => {
                         class="dropdown-toggle nav-link"
                         aria-expanded="false"
                         data-bs-toggle="dropdown"
-                        href="#"
+                        href="" onClick={logout}
                       >
                         <span class="d-none d-lg-inline me-2 text-gray-600 small">
-                          Administrator
+                          Logout
                         </span>
                         <i class="fa-solid fa-user-tie"></i>
                       </a>
@@ -163,10 +166,10 @@ const gotodashboard = () => {
                 <div class="vvcard">
                   <div class="vvcontainer">
                     <h4>
-                      <b>Room </b>
+                      <b >Room </b>
                     </h4>
                     <div class="pccontainer2">
-                      <button class="vvbutton">
+                      <button onClick={gotoroom} class="vvbutton">
                         <span>
                           <i class="fa-solid fa-arrow-right-to-bracket"></i>
                         </span>
@@ -180,7 +183,7 @@ const gotodashboard = () => {
                       <b>Student</b>
                     </h4>
                     <div class="pccontainer2">
-                      <button class="vvbutton">
+                      <button onClick={gotostudent} class="vvbutton">
                         <span>
                           <i class="fa-solid fa-arrow-right-to-bracket"></i>
                         </span>
@@ -189,9 +192,9 @@ const gotodashboard = () => {
                   </div>
                 </div>
                 <div class="vvcard">
-                  <div class="vvcontainer">
+                  <div onClick={gotoguest} class="vvcontainer">
                     <h4>
-                      <b>Guest</b>
+                      <b >Guest</b>
                     </h4>
                     <div class="pccontainer2">
                       <button class="vvbutton">

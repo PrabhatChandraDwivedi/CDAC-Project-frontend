@@ -5,11 +5,14 @@ import './Complaint.css';
 export default function ComplaintBox() {
     const navigate = useNavigate();
     const gotostudentHome = () => {
-        navigate("/studentHome")
+        navigate("/studenthome")
     }
     const logout = () => {
-        navigate("/");
-    }
+      
+            localStorage.removeItem("user");
+            navigate("/");
+        }
+    
     return (
         <div >
             <div class="d-flex flex-column CBody" id="content-wrapper">

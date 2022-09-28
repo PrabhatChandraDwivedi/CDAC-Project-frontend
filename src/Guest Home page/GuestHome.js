@@ -7,6 +7,7 @@ import "../styles.css";
 export default function GuestHome() {
     const navigate = useNavigate();
     const logout = () => {
+        localStorage.removeItem("guest");
         navigate("/");
     }
     const gotoReview = () => {
@@ -39,26 +40,32 @@ export default function GuestHome() {
     const[id_Proof,setIdProof] = useState("")
     const[mobile_no,setMobilenum] = useState("")
     const[pincode,setPincode] = useState("")
-    const url="http://localhost:8080/getone/"
-    const id =1
+    const[room_no,setRoomNo] = useState("")
+    const[fees,setFees] = useState("")
+    const[dues,setDues] = useState("")
+    const[feepaid,setFeepaid] = useState("")
+    const url="http://localhost:8080/api/dao/currentguest/"
+    const user = JSON.parse(localStorage.getItem('guest'))
+      let email = user.username
     const displayguestdata = ()=>{
-        axios.get(url+id,{mode:'no-cors'}).then((response)=>{
-            setGuest_Id(response.data.guest_Id)
-            setIstate(response.data.state)
-            setAddress(response.data.address)
-            setRoomType(response.data.room_Type)
-            setDOB(response.data.date_Of_Birth)
-            setAadharnum(response.data.aadhar_no)
-            setCheckinDate(response.data.check_in_date)
-            setCheckoutDate(response.data.check_out)
-            setCity(response.data.city)
-            setGender(response.data.gender)
-            setGuestName(response.data.guestName)
-            setIdProof(response.data.id_Proof)
-            setMobilenum(response.data.mobile_no)
-            setPincode(response.data.pincode)
+        axios.get(url+email,{mode:'no-cors'}).then((response)=>{
+            console.log(response.data)
+            setGuest_Id(response.data[0].grid)
+            setIstate(response.data[0].state)
+            setAddress(response.data[0].address)
+            setRoomType(response.data[0].room_type)
+            setDOB(response.data[0].dob)
+            setAadharnum(response.data[0].aadhar_no)
+            setCheckinDate(response.data[0].check_in_date)
+            setCheckoutDate(response.data[0].check_out_date)
+            setCity(response.data[0].city)
+            setGender(response.data[0].gender)
+            setGuestName(response.data[0].guest_name)
+            setIdProof(response.data[0].id_proof)
+            setMobilenum(response.data[0].mobile_no)
+            setPincode(response.data[0].pincode)
 
-            console.log(response.data);
+            console.log(response.data[0].grid);
              console.log(guest_Id);
              console.log(Istate);
              console.log(address);
@@ -73,13 +80,49 @@ export default function GuestHome() {
             console.log(id_Proof);
             console.log(mobile_no);
             console.log(pincode);
+            
+
+        })
+
+       
+
+    }
+
+
+
+    const forRoomNo = async()=>{
+        await axios.get("http://localhost:8080/api/roomalloc/getoneguestbygrid/"+guestName,{mode:'no-cors'}).then((res)=>{
+        console.log(res.data)
+        setFeepaid(res.data[0].feepaid)
+        setDues(res.data[0].dues)
+        setFees(res.data[0].fees)
+        setRoomNo(res.data[0].room_no)
+
+        })
+    }
+
+    const forFemaleRoom = async()=>{
+        await axios.get("http://localhost:8080/api/roomalloc/getfemaleguestroom/"+guestName,{mode:'no-cors'}).then((res)=>{
+        console.log(res.data)
+        setFeepaid(res.data[0].feepaid)
+        setDues(res.data[0].dues)
+        setFees(res.data[0].fees)
+        setRoomNo(res.data[0].room_no)
 
         })
     }
 
 
     function capitalizeFirst(str){
-        return str.charAt(0).toUpperCase() + str.slice(1);      
+        if (gender==="Male") {
+            console.log("hey");
+            forRoomNo()
+        }
+        if (gender==="Female") {
+            forFemaleRoom()
+        }
+        return str.charAt(0).toUpperCase() + str.slice(1);    
+          
   }
 
 
@@ -121,7 +164,7 @@ export default function GuestHome() {
                             {/* <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
                                 <i class="fas fa-bars"></i>
                             </button> */}
-                            <h2 style={{ textAlign: "center" }}>Welcome Prabhat!!</h2>
+                            <h2 style={{ textAlign: "center" }}>Welcome {guestName} !!</h2>
                             {/* <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
                                 <div class="input-group"></div>
                             </form> */}
@@ -156,22 +199,22 @@ export default function GuestHome() {
                                 <label class="form-label"> <strong>Check-in Time :</strong> 12.00 PM </label>
                             </div>
                             <div className="HomePage" id="Line">
-                                <label class="form-label"> <strong>Check-in Date:</strong> 09-09-2022{check_in_date}</label>
+                                <label class="form-label"> <strong>Check-in Date:</strong> {check_in_date}</label>
                             </div>
                             <br />
                             <div className="HomePage">
                                 <label class="form-label"> <strong>Check-out Time:</strong> 11.00 AM</label>
                             </div>
                             <div className="HomePage" id="Line">
-                                <label class="form-label"><strong>Check-out Date :</strong>10-09-2022 {check_out}</label>
+                                <label class="form-label"><strong>Check-out Date :</strong> {check_out}</label>
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label class="form-label"><strong>Room Type :</strong>Single {room_Type} </label>
+                                <label class="form-label"><strong>Room Type :</strong> {room_Type} </label>
                             </div>
                             <br/>
                             <div className="HomePage" >
-                                <label class="form-label"><strong>Room number :</strong>101 {room_Type} </label>
+                                <label class="form-label"><strong>Room number :</strong> {room_no} </label>
                             </div>
                         </div>
                         <br />
@@ -179,15 +222,15 @@ export default function GuestHome() {
                         <div className="CardBlock12">
                             <p className="Heading" >Personal Details</p>
                             <div className="HomePage" >
-                                <label for="text" class="form-label"> <strong>Full Name:</strong>Prabhat chandra dwivedi {capitalizeFirst(guestName)}</label>
+                                <label for="text" class="form-label"> <strong>Full Name:</strong> {capitalizeFirst(guestName)}</label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label for="dob" class="form-label"><strong>Date of Birth:</strong>21-11-1998 {date_Of_Birth} </label>
+                                <label for="dob" class="form-label"><strong>Date of Birth:</strong> {date_Of_Birth} </label>
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label for="Gender" class="form-label"><strong>Gender:</strong>Male {gender} </label>
+                                <label for="Gender" class="form-label"><strong>Gender:</strong> {gender} </label>
                             </div>
                         </div>
                         <br />
@@ -195,34 +238,34 @@ export default function GuestHome() {
                         <div className="CardBlock22">
                             <p className="Heading" >Contact Details</p>
                             <div className="HomePage" >
-                                <label for="mobno" class="form-label "><strong>Mobile No:</strong>9876543210 {mobile_no} </label>
+                                <label for="mobno" class="form-label "><strong>Mobile No:</strong> {mobile_no} </label>
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label for="email" class="form-label"><strong>E-Mail:</strong> prabhat@gmail.com </label>
+                                <label for="email" class="form-label"><strong>E-Mail:</strong> {email} </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label "><strong> Valid Id Proof :</strong>Aadhar {id_Proof} </label>
+                                <label class="form-label "><strong> Valid Id Proof :</strong> {id_Proof} </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label "><strong> Aadhar No.:</strong>1234-1234-1234 {aadhar_no}  </label>
+                                <label class="form-label "><strong> Aadhar No.:</strong> {aadhar_no}  </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label "><strong> Address:</strong>Ashok Nagar {address}  </label>
+                                <label class="form-label "><strong> Address:</strong> {address}  </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label "><strong> City:</strong>Ballia {city}</label>
+                                <label class="form-label "><strong> City:</strong> {city}</label>
                             </div>
                             <div className="HomePage" id="Line">
-                                <label class="form-label"> <strong>State:</strong>Uttar Pradesh {Istate}</label>
+                                <label class="form-label"> <strong>State:</strong> {Istate}</label>
                             </div>
                             <div className="HomePage" id="Line">
 
-                                <label class="form-label" style={{ position: "relative", left: 190 }}><strong> Pin Code</strong> :277001 {pincode}</label>
+                                <label class="form-label" style={{ position: "relative", left: 190 }}><strong> Pin Code</strong> : {pincode}</label>
 
                             </div>
                         </div>
@@ -231,15 +274,15 @@ export default function GuestHome() {
                         <div className="CardBlock22">
                             <p className="Heading" >Payment Details</p>
                             <div className="HomePage" >
-                                <label class="form-label "><strong>Total Amount:</strong> INR 1000 </label>
+                                <label class="form-label "><strong>Total Amount:</strong> INR {fees} </label>
                             </div>
                             <br />
                             <div className="HomePage">
-                                <label class="form-label"><strong>Paid Amount :</strong> INR 1000 </label>
+                                <label class="form-label"><strong>Paid Amount :</strong> INR {feepaid} </label>
                             </div>
                             <br />
                             <div className="HomePage" >
-                                <label class="form-label"><strong>Remaining fee:</strong> INR 0 </label>
+                                <label class="form-label"><strong>Remaining fee:</strong> INR {dues} </label>
                             </div>
                             <br />
                             <div className="HomePage" >

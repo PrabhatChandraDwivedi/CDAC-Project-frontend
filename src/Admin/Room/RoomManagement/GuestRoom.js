@@ -8,13 +8,23 @@ import './GuestRoom.css';
 export default function GuestRoom() {
   const navigate = useNavigate();
   const [guestmalebookeddata, setGuestMaleBookedData] = useState([]);
+  const [guestfemalebookeddata, setGuestFemaleBookedData] = useState([]);
   const [guestmaleavailablerooms, setGuestMaleAvailRoom] = useState([]);
   const [guestfemaleavaliablerooms, setGuestFemaleAvailRoom] = useState([]);
-  const [guestfemalebookeddata, setGuestFemaleBookedData] = useState([]);
 
-  const gotoadminguest = () => {
+
+  const gotoroom = () => {
+    navigate("/adminroom");
+  }
+  const gotostudent=()=>{
+    navigate("/adminstudent");
+}
+const gotoguest=()=>{
     navigate("/adminguest");
-  };
+}
+const gotodashboard = () => {
+    navigate("/dashboard");
+  }
 
   //////////////////////////////////////////////
 
@@ -298,31 +308,31 @@ export default function GuestRoom() {
             <hr class="sidebar-divider my-0" />
             <ul class="navbar-nav text-light" id="accordionSidebar">
               <li class="nav-item">
-                <a class="nav-link pcdptr" onClick={""} href="#0">
+                <a class="nav-link pcdptr" onClick={gotodashboard} href="#0">
                   <i class="fas fa-tachometer-alt"></i>
                   <span>Dashboard</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pcdptr" onClick={""} href="#0">
+                <a class="nav-link active pcdptr" onClick={gotoroom} href="#0">
                   <i class="fas fa-user"></i>
                   <span>Room</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active pcdptr" href="#0">
+                <a class="nav-link pcdptr" onClick={gotostudent} href="#0">
                   <i class="fas fa-table"></i>
                   <span>Student</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pcdptr" onClick={""} href="#0">
+                <a class="nav-link pcdptr" onClick={gotoguest} href="#0">
                   <i class="far fa-user-circle"></i>
                   <span>Guest</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link pcdptr" onClick={""} href="#0">
+                <a class="nav-link pcdptr" onClick={gotodashboard} href="#0">
                   <i class="far fa-user-circle"></i>
                   <span>Back</span>
                 </a>
@@ -338,7 +348,7 @@ export default function GuestRoom() {
               style={{ position: "fixed", top: 0 }}
             >
               <div class="container-fluid">
-                <h2>Student Room</h2>
+                <h2>Guest Room</h2>
               </div>
             </nav>
 
@@ -454,7 +464,7 @@ export default function GuestRoom() {
                                   <button
                                     type="submit"
                                     class="btn btn-warning"
-                                    onClick={gotoadminguest}
+                                    onClick={gotoguest}
                                   >
                                     <i class="fa-solid fa-user-pen"></i>
                                   </button>
